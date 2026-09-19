@@ -296,15 +296,18 @@ html[data-theme="night"] .geo{border-bottom-color:rgba(224,138,77,.5)}
 html[data-theme="night"] .ticket.cond{color:#e8b45a}
 
 /* ============ 待办 ============ */
-.todo{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
+.todo{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
 .todo:last-child{border-bottom:none}
 .todo .dl{flex:none;width:96px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600;font-size:12px}
-.todo .ow{margin-left:auto;color:var(--ink-3);font-size:12px;white-space:nowrap}
+.todo .tx{flex:1 1 56%;min-width:200px;color:var(--ink)}
+.todo .ow{flex:0 1 auto;margin-left:auto;color:var(--ink-3);font-size:12px;text-align:right}
 
 /* ============ 贴士 ============ */
 .tip-grid{display:grid;grid-template-columns:1fr;gap:12px}
 .tip-card{background:var(--card);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px}
-.tip-card h3{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:6px}
+.tip-card h3{font-family:var(--serif);font-size:15px;font-weight:700}
+.tip-card .bk-head{align-items:center}
+.tip-card ul{margin-top:6px}
 .tip-card ul{list-style:none;font-size:13px;color:var(--ink-2)}
 .tip-card li{position:relative;padding:3px 0 3px 16px}
 .tip-card li::before{content:"—";position:absolute;left:0;color:var(--accent)}
@@ -926,17 +929,27 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
   <!-- 5 · 待办清单 -->
   <section id="todos">
     <div class="sec-head"><span class="sec-no">05</span><h2>待办清单</h2><span class="sec-note">办完一项告诉我，我改页面</span></div>
-    <div class="bk-card">
-      <div class="todo"><span class="dl">09-24~25</span><span>预约 10/5 哈尔滨晚餐 7 人桌（东北菜/锅烙）</span><span class="ow">小飞龙、Lu大姐</span></div>
-      <div class="todo"><span class="dl">09-25~27</span><span>购景区门票（茅兰沟/汤旺河/金山鹿苑可退票；五营只买可退票）</span><span class="ow">鸭尼克</span></div>
-      <div class="todo"><span class="dl">09-26 18:00</span><span>确认保留汤旺龙源小院（免费取消截止）</span><span class="ow">Lu大姐、咕小妹、Q小妹</span></div>
-      <div class="todo"><span class="dl">09-28</span><span>释放重复订单（住宿/车辆备选）</span><span class="ow">全员</span></div>
-      <div class="todo"><span class="dl">09-29 10:00</span><span>确认保留两笔租车（免费取消截止）· 完成身份认证与押金</span><span class="ow">菲利克斯</span></div>
-      <div class="todo"><span class="dl">09-30 18:00</span><span>电话预订 10/1 萝北晚餐 · 确认豪庭酒店保留（免费取消截止）</span><span class="ow">小飞龙、Lu大姐</span></div>
-      <div class="todo"><span class="dl">取车前</span><span>两车车牌自动显示后同步到群里 · 填写车次信息</span><span class="ow">菲利克斯</span></div>
-      <div class="todo"><span class="dl">出发前</span><span>无人机 UOM 空域查询 + 实名登记激活（边境默认不飞）</span><span class="ow">鸭尼克</span></div>
-      <div class="todo"><span class="dl">每日出发前</span><span>按高德与交管公告复核封路、施工（G331）与实时拥堵</span><span class="ow">鸭尼克</span></div>
-      <div class="todo"><span class="dl">开售后</span><span>Lulu 购买 10/6 返程车票并同步车次时间</span><span class="ow">Lulu</span></div>
+    <div class="bk-card collapsed">
+      <div class="bk-head" data-toggle>
+        <div>
+          <span class="bk-tag">10 项 · 按办理时间排序</span>
+          <div class="bk-title">出发前与途中待办</div>
+          <div class="bk-summary">最近：09-24~25 预约 10/5 哈尔滨晚餐 7 人桌 · 09-25~27 购景区门票</div>
+        </div>
+        <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="bk-body">
+      <div class="todo"><span class="dl">09-24~25</span><span class="tx">预约 10/5 哈尔滨晚餐 7 人桌（东北菜/锅烙）</span><span class="ow">小飞龙、Lu大姐</span></div>
+      <div class="todo"><span class="dl">09-25~27</span><span class="tx">购景区门票（茅兰沟/汤旺河/金山鹿苑可退票；五营只买可退票）</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">09-26 18:00</span><span class="tx">确认保留汤旺龙源小院（免费取消截止）</span><span class="ow">Lu大姐、咕小妹、Q小妹</span></div>
+      <div class="todo"><span class="dl">09-28</span><span class="tx">释放重复订单（住宿/车辆备选）</span><span class="ow">全员</span></div>
+      <div class="todo"><span class="dl">09-29 10:00</span><span class="tx">确认保留两笔租车（免费取消截止）· 完成身份认证与押金</span><span class="ow">菲利克斯</span></div>
+      <div class="todo"><span class="dl">09-30 18:00</span><span class="tx">电话预订 10/1 萝北晚餐 · 确认豪庭酒店保留（免费取消截止）</span><span class="ow">小飞龙、Lu大姐</span></div>
+      <div class="todo"><span class="dl">取车前</span><span class="tx">两车车牌自动显示后同步到群里 · 填写车次信息</span><span class="ow">菲利克斯</span></div>
+      <div class="todo"><span class="dl">出发前</span><span class="tx">无人机 UOM 空域查询 + 实名登记激活（边境默认不飞）</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">每日出发前</span><span class="tx">按高德与交管公告复核封路、施工（G331）与实时拥堵</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">开售后</span><span class="tx">Lulu 购买 10/6 返程车票并同步车次时间</span><span class="ow">Lulu</span></div>
+      </div>
     </div>
   </section>
 
@@ -949,45 +962,65 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <div class="wx-cap">D0–D6 为行程日 · 行程日进入 7 天预报窗口后自动标注 · 打开页面即更新，离线显示最近缓存</div>
     </div>
     <div class="tip-grid">
-      <div class="tip-card">
-        <h3>穿衣 · 三层随时加减</h3>
+      <div class="tip-card collapsed">
+        <div class="bk-head" data-toggle>
+          <h3>穿衣 · 三层随时加减</h3>
+          <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="bk-body">
         <ul>
           <li>规划温区 -3°→15°C（非预报）：贴身排汗 + 抓绒/薄羽绒机动 + 挡风防雨外壳</li>
           <li>防滑徒步鞋 + 两双轮换袜，不穿新鞋上路</li>
           <li>薄帽/手套/脖套/墨镜/润唇膏放随身包；车内不穿厚羽绒驾驶</li>
-        </ul>
+        </ul></div>
       </div>
-      <div class="tip-card">
-        <h3>无人机 · 默认不飞</h3>
+      <div class="tip-card collapsed">
+        <div class="bk-head" data-toggle>
+          <h3>无人机 · 默认不飞</h3>
+          <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="bk-body">
         <ul>
           <li>边境（萝北/名山/龙江三峡/G331/嘉荫）默认不飞</li>
           <li>茅兰沟/汤旺河/五营/溪水：UOM空域+现场许可+天气+客流 四项全过才飞；金山鹿苑不飞</li>
           <li>哈尔滨机场周边与城区不飞</li>
-        </ul>
+        </ul></div>
       </div>
-      <div class="tip-card">
-        <h3>餐饮 · 三条硬规则</h3>
+      <div class="tip-card collapsed">
+        <div class="bk-head" data-toggle>
+          <h3>餐饮 · 三条硬规则</h3>
+          <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="bk-body">
         <ul>
           <li>驾驶员零酒精；江鱼先问品种、单价与整锅重量</li>
           <li>不吃自行采摘或来源不明的野生蘑菇</li>
           <li>每车 8–10 瓶水 + 保温壶；10/2–10/4 午餐默认车内完成</li>
-        </ul>
+        </ul></div>
       </div>
-      <div class="tip-card">
-        <h3>拍摄 · 完成即收机</h3>
+      <div class="tip-card collapsed">
+        <div class="bk-head" data-toggle>
+          <h3>拍摄 · 完成即收机</h3>
+          <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="bk-body">
         <ul>
           <li>嘉荫 10/2 日落约 16:57；10/3 日出约 05:20（临行复核）</li>
           <li>每日最少素材：1 建立镜头 + 2 中景 + 4 细节 + 2 动作 + 30s 环境声 + 1 七人合影</li>
           <li>边境区域拍摄避免对准口岸设施与俄方一侧</li>
-        </ul>
+        </ul></div>
       </div>
-      <div class="tip-card">
-        <h3>安全 · 不突破体力线</h3>
+      <div class="tip-card collapsed">
+        <div class="bk-head" data-toggle>
+          <h3>安全 · 不突破体力线</h3>
+          <button class="bk-btn" aria-expanded="false"><span class="bk-btn-t">展开</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="bk-body">
         <ul>
           <li>每日徒步上限 5–10km；长驾驶日每 2 小时换驾驶员</li>
           <li>两车保持位置共享；9 月末林区清晨可降至 -3°C，注意桥面暗冰</li>
           <li>常用电话：神州租车 400-616-6666 · 铁路 12306 · 南航 95539 · 国航 95583 · 东航 95530 · 深航 95361 · 长龙 956199 · 首航 95375 · 山航 95369 · 福州航 95071666</li>
-        </ul>
+        </ul></div>
       </div>
     </div>
   </section>
@@ -1012,7 +1045,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
 /* ============ 卡片收起/展开 ============ */
 document.querySelectorAll('[data-toggle]').forEach(function(h){
   h.addEventListener('click', function(){
-    var card = h.closest('.bk-card, .day-card');
+    var card = h.closest('.bk-card, .day-card, .tip-card');
     if (!card) return;
     var collapsed = card.classList.toggle('collapsed');
     var t = h.querySelector('.bk-btn-t'); if (t) t.textContent = collapsed ? '展开' : '收起';
@@ -1116,6 +1149,12 @@ document.querySelectorAll('[data-route]').forEach(function(b){
     var t = b.querySelector('.route-btn-t'); if (t) t.textContent = open ? '收起' : '路线';
     b.setAttribute('aria-expanded', String(open));
   });
+  var c0 = b.closest('.day-card');
+  if (c0){
+    c0.classList.add('route-open');
+    b.setAttribute('aria-expanded', 'true');
+    var t0 = b.querySelector('.route-btn-t'); if (t0) t0.textContent = '收起';
+  }
 });
 
 /* ============ 天气 · 中国气象局 ============ */
@@ -1170,10 +1209,12 @@ function wxRender(data, stamp, stale){
   var label = (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
   src.textContent = '中国气象局 · ' + (stale ? '缓存 ' : '更新 ') + label;
 }
+var WX_SNAP = {"t":1789834841447,"data":{"50953":[{"date":"2026/09/19","high":26.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西南风","dayWindScale":"3~4级","low":12.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"西南风","nightWindScale":"3~4级"},{"date":"2026/09/20","high":19.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":6.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西北风","nightWindScale":"微风"},{"date":"2026/09/21","high":17.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"微风","low":7.0,"nightText":"晴","nightCode":0,"nightWindDirection":"东南风","nightWindScale":"微风"},{"date":"2026/09/22","high":19.0,"dayText":"多云","dayCode":1,"dayWindDirection":"东南风","dayWindScale":"3~4级","low":10.0,"nightText":"阵雨","nightCode":3,"nightWindDirection":"东北风","nightWindScale":"3~4级"},{"date":"2026/09/23","high":19.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"北风","dayWindScale":"3~4级","low":7.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西南风","nightWindScale":"微风"},{"date":"2026/09/24","high":19.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西南风","dayWindScale":"微风","low":8.0,"nightText":"阵雨","nightCode":3,"nightWindDirection":"东南风","nightWindScale":"微风"},{"date":"2026/09/25","high":16.0,"dayText":"小雨","dayCode":7,"dayWindDirection":"东南风","dayWindScale":"3~4级","low":8.0,"nightText":"阵雨","nightCode":3,"nightWindDirection":"西南风","nightWindScale":"微风"}],"50776":[{"date":"2026/09/19","high":28.0,"dayText":"多云","dayCode":1,"dayWindDirection":"南风","dayWindScale":"微风","low":15.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西南风","nightWindScale":"微风"},{"date":"2026/09/20","high":19.0,"dayText":"小雨","dayCode":7,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":7.0,"nightText":"晴","nightCode":0,"nightWindDirection":"西北风","nightWindScale":"微风"},{"date":"2026/09/21","high":16.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":4.0,"nightText":"晴","nightCode":0,"nightWindDirection":"西北风","nightWindScale":"微风"},{"date":"2026/09/22","high":17.0,"dayText":"多云","dayCode":1,"dayWindDirection":"南风","dayWindScale":"微风","low":9.0,"nightText":"多云","nightCode":1,"nightWindDirection":"北风","nightWindScale":"微风"},{"date":"2026/09/23","high":16.0,"dayText":"多云","dayCode":1,"dayWindDirection":"北风","dayWindScale":"3~4级","low":8.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西风","nightWindScale":"微风"},{"date":"2026/09/24","high":19.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西风","dayWindScale":"微风","low":6.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西南风","nightWindScale":"微风"},{"date":"2026/09/25","high":18.0,"dayText":"多云","dayCode":1,"dayWindDirection":"南风","dayWindScale":"微风","low":8.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"东北风","nightWindScale":"微风"}],"50673":[{"date":"2026/09/19","high":27.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西南风","dayWindScale":"4~5级","low":10.0,"nightText":"中雨","nightCode":8,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/20","high":15.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"西北风","dayWindScale":"4~5级","low":5.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/21","high":15.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":2.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西风","nightWindScale":"3~4级"},{"date":"2026/09/22","high":18.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":5.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"北风","nightWindScale":"微风"},{"date":"2026/09/23","high":14.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"北风","dayWindScale":"3~4级","low":5.0,"nightText":"晴","nightCode":0,"nightWindDirection":"西风","nightWindScale":"微风"},{"date":"2026/09/24","high":16.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":2.0,"nightText":"多云","nightCode":1,"nightWindDirection":"南风","nightWindScale":"微风"},{"date":"2026/09/25","high":20.0,"dayText":"小雨","dayCode":7,"dayWindDirection":"南风","dayWindScale":"3~4级","low":6.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"西风","nightWindScale":"微风"}],"50674":[{"date":"2026/09/19","high":25.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西南风","dayWindScale":"4~5级","low":9.0,"nightText":"中雨","nightCode":8,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/20","high":14.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"西北风","dayWindScale":"4~5级","low":1.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/21","high":13.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":-2.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西风","nightWindScale":"3~4级"},{"date":"2026/09/22","high":15.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":3.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"北风","nightWindScale":"微风"},{"date":"2026/09/23","high":12.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"北风","dayWindScale":"3~4级","low":2.0,"nightText":"晴","nightCode":0,"nightWindDirection":"西风","nightWindScale":"微风"},{"date":"2026/09/24","high":17.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":2.0,"nightText":"多云","nightCode":1,"nightWindDirection":"南风","nightWindScale":"微风"},{"date":"2026/09/25","high":18.0,"dayText":"小雨","dayCode":7,"dayWindDirection":"南风","dayWindScale":"3~4级","low":4.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"西风","nightWindScale":"微风"}],"50774":[{"date":"2026/09/19","high":26.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西南风","dayWindScale":"4~5级","low":11.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/20","high":16.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"西北风","dayWindScale":"4~5级","low":3.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西北风","nightWindScale":"3~4级"},{"date":"2026/09/21","high":16.0,"dayText":"晴","dayCode":0,"dayWindDirection":"西北风","dayWindScale":"3~4级","low":0.0,"nightText":"多云","nightCode":1,"nightWindDirection":"西风","nightWindScale":"3~4级"},{"date":"2026/09/22","high":16.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":6.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"北风","nightWindScale":"微风"},{"date":"2026/09/23","high":16.0,"dayText":"阵雨","dayCode":3,"dayWindDirection":"北风","dayWindScale":"3~4级","low":5.0,"nightText":"晴","nightCode":0,"nightWindDirection":"西风","nightWindScale":"微风"},{"date":"2026/09/24","high":16.0,"dayText":"多云","dayCode":1,"dayWindDirection":"西风","dayWindScale":"3~4级","low":6.0,"nightText":"多云","nightCode":1,"nightWindDirection":"南风","nightWindScale":"微风"},{"date":"2026/09/25","high":19.0,"dayText":"小雨","dayCode":7,"dayWindDirection":"南风","dayWindScale":"3~4级","low":8.0,"nightText":"小雨","nightCode":7,"nightWindDirection":"西风","nightWindScale":"微风"}]}};
 function wxLoad(){
   var cached = null;
   try { cached = JSON.parse(localStorage.getItem(WX_KEY) || 'null'); } catch (e) {}
   if (cached && cached.data) wxRender(cached.data, cached.t, true);
+  else if (typeof WX_SNAP !== 'undefined') wxRender(WX_SNAP.data, WX_SNAP.t, true);
   var jobs = WX_CITIES.map(function(c){
     return fetch('https://weather.cma.cn/api/weather/view?stationid=' + c.id)
       .then(function(r){ return r.json(); })
@@ -1187,6 +1228,7 @@ function wxLoad(){
     wxRender(data, t, false);
   }).catch(function(){
     if (!cached || !cached.data){
+      if (typeof WX_SNAP !== 'undefined'){ wxRender(WX_SNAP.data, WX_SNAP.t, true); return; }
       document.getElementById('wxBody').innerHTML = '<div class="wx-loading">天气数据暂时不可用 · 出发前请在 weather.cma.cn 复核</div>';
       document.getElementById('wxSrc').textContent = '中国气象局 · 获取失败';
     }
