@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>小兴安岭 · 秋行手册 2026</title>
+<style>
+/* ============ 设计系统 ============ */
+:root{
+  --paper:#f6f1e7; --paper-2:#efe8d9; --card:#fdfbf5;
+  --ink:#1d232e; --ink-2:#5a6270; --ink-3:#8b93a1;
+  --line:rgba(29,35,46,.14); --line-2:rgba(29,35,46,.08);
+  --d1:#2f6fdb; --d2:#0e9f6e; --d3:#e8a13a; --d4:#d94848; --d5:#7c5cd6; --d0:#8a94a6;
+  --accent:#c2571b;
+  --now-bg:#161c26; --now-fg:#f2ecdd; --now-dim:#9aa3b2;
+  --shadow:0 1px 2px rgba(29,35,46,.05),0 8px 28px rgba(29,35,46,.07);
+  --serif:"Noto Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+}
+html[data-theme="night"]{
+  --paper:#10151d; --paper-2:#151b25; --card:#1a212c;
+  --ink:#e9e4d6; --ink-2:#a6aebb; --ink-3:#6e7787;
+  --line:rgba(233,228,214,.16); --line-2:rgba(233,228,214,.08);
+  --accent:#e08a4d;
+  --now-bg:#232c3a; --now-fg:#f2ecdd; --now-dim:#8b95a6;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans); background:var(--paper); color:var(--ink);
+  line-height:1.7; font-size:15px;
+  transition:background .5s ease,color .5s ease;
+  padding-bottom:calc(24px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:680px;margin:0 auto;padding:0 20px}
+
+/* ============ 页眉 ============ */
+header{padding:34px 0 8px}
+.kicker{
+  font-size:11px;letter-spacing:.22em;color:var(--ink-3);
+  text-transform:uppercase;display:flex;justify-content:space-between;align-items:baseline;
+  border-top:1.5px solid var(--ink);padding-top:10px;
+}
+h1{
+  font-family:var(--serif);font-weight:900;
+  font-size:clamp(34px,9vw,52px);line-height:1.18;letter-spacing:.02em;
+  margin:18px 0 6px;
+}
+h1 .thin{font-weight:400;color:var(--ink-2)}
+.route-line{color:var(--ink-2);font-size:13.5px;letter-spacing:.04em;margin-bottom:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.chip{
+  font-size:12px;letter-spacing:.06em;padding:4px 12px;border:1px solid var(--line);
+  border-radius:999px;color:var(--ink-2);font-variant-numeric:tabular-nums;
+}
+.chip b{color:var(--ink);font-weight:600}
+
+/* ============ 此刻关注 ============ */
+.now-card{
+  margin:22px 0 8px;background:var(--now-bg);color:var(--now-fg);
+  border-radius:18px;padding:22px 22px 20px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.now-card::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(120% 90% at 85% -10%,rgba(194,87,27,.28),transparent 55%);
+}
+.now-label{font-size:11px;letter-spacing:.28em;color:var(--now-dim);margin-bottom:10px}
+.now-event{font-family:var(--serif);font-size:19px;font-weight:700;line-height:1.45;margin-bottom:2px;position:relative;z-index:1}
+.now-sub{font-size:12.5px;color:var(--now-dim);margin-bottom:16px;position:relative;z-index:1}
+.count{display:flex;gap:6px;position:relative;z-index:1}
+.count .cell{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:10px 4px 8px;text-align:center}
+.count .num{
+  display:block;font-size:clamp(26px,7.4vw,38px);font-weight:700;line-height:1.1;
+  font-variant-numeric:tabular-nums;letter-spacing:.01em;
+}
+.count .num.sec{color:var(--accent)}
+.count .unit{display:block;font-size:10.5px;letter-spacing:.3em;color:var(--now-dim);margin-top:4px;text-indent:.3em}
+
+/* ============ 顶部导航 · 吸顶 + 滚动侦测 ============ */
+.topnav{
+  position:sticky;top:0;z-index:60;margin:0 -20px;padding:0 20px;
+  background:color-mix(in srgb, var(--paper) 84%, transparent);
+  -webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--line-2);
+}
+.topnav-inner{
+  display:flex;gap:4px;overflow-x:auto;padding:8px 0;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.topnav-inner::-webkit-scrollbar{display:none}
+.tn-link{
+  flex:none;display:inline-flex;align-items:baseline;
+  font-size:12px;letter-spacing:.08em;color:var(--ink-3);text-decoration:none;
+  padding:5px 12px;border-radius:999px;border:1px solid transparent;
+  transition:color .25s ease,background .25s ease,border-color .25s ease;
+}
+.tn-link .tn-no{font-size:9.5px;letter-spacing:.05em;margin-right:5px;opacity:.65;font-variant-numeric:tabular-nums}
+.tn-link.active{
+  color:var(--accent);background:rgba(194,87,27,.1);border-color:rgba(194,87,27,.32);
+}
+html[data-theme="night"] .tn-link.active{background:rgba(224,138,77,.13);border-color:rgba(224,138,77,.38)}
+section{scroll-margin-top:60px}
+
+/* ============ 行程时间轴 ============ */
+.trip-tl{position:relative;display:flex;margin:20px 0 4px;padding:0 4px}
+.ttl-track{
+  position:absolute;left:calc(100%/14 + 4px);right:calc(100%/14 + 4px);top:6px;height:2px;
+  background:var(--line);border-radius:2px;
+}
+.ttl-fill{height:100%;width:0;background:var(--accent);border-radius:2px;transition:width 1s ease}
+.ttl-node{
+  position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;
+  background:none;border:none;font:inherit;cursor:pointer;padding:0 2px;
+  -webkit-tap-highlight-color:transparent;
+}
+.ttl-dot{
+  width:14px;height:14px;border-radius:50%;border:2.5px solid var(--dc,var(--d0));
+  background:var(--paper);transition:background .3s ease,box-shadow .3s ease;margin-bottom:3px;
+}
+.ttl-node.past .ttl-dot{background:var(--dc)}
+.ttl-node.current .ttl-dot{
+  background:var(--dc);
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--dc) 22%, transparent);
+  animation:ttlPulse 2.2s ease-in-out infinite;
+}
+@keyframes ttlPulse{
+  0%,100%{box-shadow:0 0 0 3px color-mix(in srgb, var(--dc) 26%, transparent)}
+  50%{box-shadow:0 0 0 6px color-mix(in srgb, var(--dc) 10%, transparent)}
+}
+.ttl-d{font-size:9.5px;letter-spacing:.06em;color:var(--ink-3);font-weight:700;font-variant-numeric:tabular-nums}
+.ttl-name{font-size:11px;color:var(--ink-2);font-weight:600;letter-spacing:.02em}
+.ttl-node.past .ttl-name{color:var(--ink-3);font-weight:400}
+.ttl-node.current .ttl-name{color:var(--ink)}
+
+/* ============ 模块内小导航 · 横向切换 ============ */
+.subnav{
+  display:flex;gap:6px;overflow-x:auto;padding:2px 2px 10px;margin-bottom:2px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.subnav::-webkit-scrollbar{display:none}
+.sn-tab{
+  flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);
+  border-radius:999px;font-size:12px;padding:6px 14px;letter-spacing:.06em;
+  cursor:pointer;font-family:var(--sans);font-variant-numeric:tabular-nums;
+  transition:color .25s ease,background .25s ease,border-color .25s ease;
+}
+.sn-tab b{font-weight:700;margin-right:4px}
+.sn-tab.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.day-tabs .sn-tab.active{background:var(--dc,var(--ink));border-color:var(--dc,var(--ink));color:#fff}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:panelIn .35s ease}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tab-panel .bk-card{margin-bottom:0}
+.tab-panel{scroll-margin-top:112px}
+
+/* ============ 章节 ============ */
+section{margin-top:38px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+.sec-no{font-size:11px;letter-spacing:.2em;color:var(--ink-3)}
+h2{font-family:var(--serif);font-size:22px;font-weight:900;letter-spacing:.02em}
+.sec-note{margin-left:auto;font-size:11.5px;color:var(--ink-3)}
+
+/* ============ 地图 ============ */
+.map-card{
+  background:var(--card);border:1px solid var(--line-2);border-radius:18px;
+  box-shadow:var(--shadow);padding:14px 10px 6px;overflow:hidden;
+}
+.map-card svg{display:block;width:100%;height:auto}
+.map-legend{
+  display:grid;grid-template-columns:1fr;gap:2px;
+  padding:10px 12px 14px;border-top:1px dashed var(--line);margin-top:4px;
+}
+.map-legend .lg{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--ink-2);padding:3px 0}
+.map-legend .dot{width:10px;height:10px;border-radius:50%;flex:none}
+.map-legend .lg b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.map-legend .km{margin-left:auto;font-variant-numeric:tabular-nums;color:var(--ink-3);font-size:11.5px;white-space:nowrap}
+.map-cap{font-size:11px;color:var(--ink-3);text-align:center;padding:0 0 10px}
+
+/* ============ 订单卡 ============ */
+.bk-card{
+  background:var(--card);border:1px solid var(--line-2);border-radius:16px;
+  box-shadow:var(--shadow);padding:16px 18px;margin-bottom:12px;
+}
+.bk-tag{display:inline-block;font-size:10.5px;letter-spacing:.18em;padding:2px 9px;border-radius:5px;background:var(--paper-2);color:var(--ink-2);margin-bottom:8px}
+.bk-title{font-family:var(--serif);font-weight:700;font-size:16.5px}
+.bk-sub{font-size:12px;color:var(--ink-3);margin-top:2px}
+.bk-rows{margin-top:8px;font-size:13px;color:var(--ink-2)}
+.bk-rows .r{display:flex;gap:10px;padding:2.5px 0}
+.bk-rows .k{flex:none;width:56px;color:var(--ink-3)}
+.bk-rows a{color:var(--accent);text-decoration:none}
+.bk-group{font-size:11px;letter-spacing:.2em;color:var(--ink-3);margin:14px 0 4px}
+.bk-group:first-of-type{margin-top:6px}
+
+/* 航班/车次行 */
+.fl{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-2)}
+.fl:last-child{border-bottom:none}
+.fl-t{flex:none;width:58px;font-variant-numeric:tabular-nums;font-weight:700;font-size:15px}
+.fl-main{flex:1;min-width:0}
+.fl-main .who{font-weight:600}
+.fl-main .no{color:var(--ink-3);font-size:12px;margin-left:6px;font-variant-numeric:tabular-nums}
+.fl-main .rt{display:block;font-size:12px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.fl-note{font-size:11px;color:var(--accent);flex:none}
+.badge{display:inline-block;font-size:10px;letter-spacing:.1em;padding:1.5px 8px;border-radius:4px;flex:none}
+.badge.must{background:rgba(47,111,219,.12);color:var(--d1)}
+.badge.cond{background:rgba(232,161,58,.16);color:#b97c1a}
+.badge.drop{background:var(--paper-2);color:var(--ink-3)}
+html[data-theme="night"] .badge.cond{color:#e8b45a}
+
+/* 门票行 */
+.tk{display:flex;align-items:baseline;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
+.tk:last-child{border-bottom:none}
+.tk .nm{font-weight:600}
+.tk .pr{color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tk .act{margin-left:auto;font-size:12px;color:var(--ink-3);text-align:right;max-width:46%}
+
+/* ============ 卡片收起/展开 ============ */
+.bk-head{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none;-webkit-user-select:none}
+.bk-btn{
+  flex:none;margin-left:auto;margin-top:2px;border:1px solid var(--line);background:transparent;
+  color:var(--ink-2);border-radius:999px;font-size:11px;padding:3px 11px;letter-spacing:.08em;
+  display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:var(--sans);
+}
+.bk-btn svg{transition:transform .3s ease}
+.collapsed .bk-btn svg{transform:rotate(180deg)}
+.bk-body{overflow:hidden;max-height:5000px;transition:max-height .45s ease}
+.collapsed .bk-body{max-height:0}
+.bk-summary{display:none;font-size:12px;color:var(--ink-3);margin-top:6px;letter-spacing:.03em}
+.collapsed .bk-summary{display:block}
+
+/* ============ 地点链接 · 高德 ============ */
+.geo{
+  color:var(--accent);text-decoration:none;cursor:pointer;
+  border-bottom:1px dashed rgba(194,87,27,.45);
+}
+html[data-theme="night"] .geo{border-bottom-color:rgba(224,138,77,.5)}
+.geo::after{
+  content:"";display:inline-block;width:8px;height:10px;margin-left:3px;vertical-align:-1px;
+  background:var(--accent);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'%3E%3Cpath d='M5 0C2.2 0 0 2.2 0 5c0 3.5 5 7 5 7s5-3.5 5-7C10 2.2 7.8 0 5 0zm0 6.8a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 12'%3E%3Cpath d='M5 0C2.2 0 0 2.2 0 5c0 3.5 5 7 5 7s5-3.5 5-7C10 2.2 7.8 0 5 0zm0 6.8a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.stay-line .geo,.bk-rows .geo{font-weight:600}
+
+/* ============ 当日路线展开 ============ */
+.route-btn{
+  flex:none;margin-left:auto;border:1px solid var(--line);background:transparent;
+  color:var(--ink-2);border-radius:999px;font-size:11px;padding:4px 12px;letter-spacing:.1em;
+  display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:var(--sans);
+}
+.route-btn svg{transition:transform .3s ease}
+.route-open .route-btn svg{transform:rotate(180deg)}
+.route-body{overflow:hidden;max-height:0;transition:max-height .45s ease}
+.route-open .route-body{max-height:680px}
+.route-open .route-inner{border-bottom:1px solid var(--line-2)}
+.route-inner{padding:12px 18px 14px}
+.route-stops{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-2);margin-bottom:10px}
+.route-stops .arr{color:var(--ink-3);font-size:11px}
+.route-legs{display:flex;flex-direction:column;gap:6px}
+.leg{
+  display:flex;align-items:center;gap:10px;padding:8px 12px;border:1px solid var(--line-2);
+  border-radius:10px;text-decoration:none;color:var(--ink);font-size:12.5px;background:var(--paper-2);
+}
+.leg .lg-no{
+  flex:none;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;
+  font-size:10.5px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;
+}
+.leg .lg-t{flex:1;min-width:0}
+.leg .lg-d{flex:none;color:var(--ink-3);font-size:11px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.leg .lg-go{flex:none;color:var(--accent);font-size:11px;letter-spacing:.05em;white-space:nowrap}
+.leg.cond{border-style:dashed;opacity:.78}
+.route-cap{font-size:10.5px;color:var(--ink-3);margin-top:8px;letter-spacing:.03em}
+
+/* SVG 地图地名可点 */
+.map-card svg a{cursor:pointer}
+.map-card svg a:hover text{text-decoration:underline}
+
+/* ============ 逐日（样例） ============ */
+.day-card{
+  background:var(--card);border:1px solid var(--line-2);border-radius:18px;
+  box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;
+}
+.day-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line-2)}
+.day-badge{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;font-family:var(--serif)}
+.day-title{font-family:var(--serif);font-weight:700;font-size:16px;line-height:1.4}
+.day-date{font-size:11.5px;color:var(--ink-3);letter-spacing:.08em}
+.tl{padding:8px 18px 14px}
+.tl .ev{display:flex;gap:14px;padding:7px 0;border-bottom:1px dashed var(--line-2)}
+.tl .ev:last-child{border-bottom:none}
+.tl .t{flex:none;width:64px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:var(--ink);padding-top:1px}
+.tl .c{font-size:13.5px;color:var(--ink-2)}
+.stay-line{display:flex;gap:8px;align-items:center;padding:10px 18px;background:var(--paper-2);font-size:12.5px;color:var(--ink-2)}
+.ticket{display:inline-block;font-size:10px;padding:1px 7px;border-radius:4px;background:rgba(194,87,27,.14);color:var(--accent);margin-right:6px;letter-spacing:.05em;vertical-align:1px;white-space:nowrap}
+.ticket.cond{background:rgba(232,161,58,.16);color:#b97c1a}
+html[data-theme="night"] .ticket.cond{color:#e8b45a}
+
+/* ============ 待办 ============ */
+.todo{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
+.todo:last-child{border-bottom:none}
+.todo .dl{flex:none;width:96px;font-variant-numeric:tabular-nums;color:var(--accent);font-weight:600;font-size:12px}
+.todo .ow{margin-left:auto;color:var(--ink-3);font-size:12px;white-space:nowrap}
+
+/* ============ 贴士 ============ */
+.tip-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.tip-card{background:var(--card);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px}
+.tip-card h3{font-family:var(--serif);font-size:15px;font-weight:700;margin-bottom:6px}
+.tip-card ul{list-style:none;font-size:13px;color:var(--ink-2)}
+.tip-card li{position:relative;padding:3px 0 3px 16px}
+.tip-card li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+@media (min-width:560px){
+  .tip-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ============ 装备 ============ */
+.gear{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line-2);font-size:13.5px}
+.gear:last-of-type{border-bottom:none}
+.gear .who{flex:none;width:56px;font-weight:600}
+.gear .what{color:var(--ink-2)}
+.gear .tag{margin-left:auto;flex:none;font-size:10.5px;letter-spacing:.08em;padding:2px 9px;border-radius:4px;background:var(--paper-2);color:var(--ink-3);white-space:nowrap}
+
+/* ============ 天气 ============ */
+.wx-card{background:var(--card);border:1px solid var(--line-2);border-radius:16px;box-shadow:var(--shadow);padding:14px 18px;margin-bottom:12px}
+.wx-head{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.wx-head h3{font-family:var(--serif);font-size:15px;font-weight:700}
+.wx-src{margin-left:auto;font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;white-space:nowrap}
+.wx-row{display:flex;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line-2);align-items:flex-start}
+.wx-row:last-of-type{border-bottom:none}
+.wx-city{flex:none;width:44px;font-size:12.5px;font-weight:600;padding-top:8px}
+.wx-days{display:flex;gap:4px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:none;-ms-overflow-style:none;flex:1;min-width:0}
+.wx-days::-webkit-scrollbar{display:none}
+.wx-cell{flex:none;width:47px;scroll-snap-align:start;text-align:center;padding:5px 2px 4px;border-radius:8px;border:1px solid transparent}
+.wx-cell .wx-d{display:block;font-size:10px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.wx-cell .wx-wd{display:block;font-size:9px;color:var(--ink-3);letter-spacing:.05em}
+.wx-cell .wx-w{display:flex;align-items:center;justify-content:center;gap:3px;font-size:11px;color:var(--ink-2);margin:2px 0 1px;white-space:nowrap}
+.wx-cell .wx-w i{width:6px;height:6px;border-radius:50%;flex:none}
+.wx-cell .wx-t{display:block;font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.wx-cell .wx-t em{font-style:normal;font-weight:400;color:var(--ink-3);font-size:10px}
+.wx-cell.today .wx-d{color:var(--accent);font-weight:700}
+.wx-cell.trip{border-color:rgba(194,87,27,.4);background:rgba(194,87,27,.07)}
+.wx-cell.trip .wx-wd{color:var(--accent);font-weight:700}
+html[data-theme="night"] .wx-cell.trip{border-color:rgba(224,138,77,.45);background:rgba(224,138,77,.1)}
+.wx-loading{font-size:12.5px;color:var(--ink-3);padding:14px 0;text-align:center;letter-spacing:.05em}
+.wx-cap{font-size:10.5px;color:var(--ink-3);margin-top:8px;letter-spacing:.03em}
+
+/* ============ 占位 ============ */
+.stub{
+  border:1.5px dashed var(--line);border-radius:16px;padding:26px 20px;text-align:center;
+  color:var(--ink-3);font-size:13px;letter-spacing:.05em;
+}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--ink-3);letter-spacing:.08em;text-align:center}
+
+@media (min-width:560px){
+  .map-legend{grid-template-columns:1fr 1fr}
+  .count .cell{padding:14px 4px 10px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="topnav" aria-label="章节导航">
+    <div class="topnav-inner">
+      <a class="tn-link" href="#now" data-spy="now"><span class="tn-no">01</span>此刻</a>
+      <a class="tn-link" href="#map" data-spy="map"><span class="tn-no">02</span>总览</a>
+      <a class="tn-link" href="#bookings" data-spy="bookings"><span class="tn-no">03</span>订单</a>
+      <a class="tn-link" href="#days" data-spy="days"><span class="tn-no">04</span>逐日</a>
+      <a class="tn-link" href="#todos" data-spy="todos"><span class="tn-no">05</span>待办</a>
+      <a class="tn-link" href="#tips" data-spy="tips"><span class="tn-no">06</span>贴士</a>
+      <a class="tn-link" href="#gear" data-spy="gear"><span class="tn-no">07</span>装备</a>
+    </div>
+  </nav>
+
+  <header>
+    <div class="kicker"><span>Xiaoxing'anling / Self-Drive 2026</span><span>N 47°–49°</span></div>
+    <h1>小兴安岭<br><span class="thin">秋行手册</span></h1>
+    <div class="trip-tl" role="navigation" aria-label="行程进度时间轴">
+      <div class="ttl-track"><div class="ttl-fill" id="ttlFill"></div></div>
+      <button class="ttl-node" data-target="day0" style="--dc:var(--d0)"><span class="ttl-dot"></span><span class="ttl-d">D0 · 9/30</span><span class="ttl-name">集结</span></button>
+      <button class="ttl-node" data-target="day1" style="--dc:var(--d1)"><span class="ttl-dot"></span><span class="ttl-d">D1 · 10/1</span><span class="ttl-name">萝北</span></button>
+      <button class="ttl-node" data-target="day2" style="--dc:var(--d2)"><span class="ttl-dot"></span><span class="ttl-d">D2 · 10/2</span><span class="ttl-name">嘉荫</span></button>
+      <button class="ttl-node" data-target="day3" style="--dc:var(--d3)"><span class="ttl-dot"></span><span class="ttl-d">D3 · 10/3</span><span class="ttl-name">汤旺</span></button>
+      <button class="ttl-node" data-target="day4" style="--dc:var(--d4)"><span class="ttl-dot"></span><span class="ttl-d">D4 · 10/4</span><span class="ttl-name">伊春</span></button>
+      <button class="ttl-node" data-target="day5" style="--dc:var(--d5)"><span class="ttl-dot"></span><span class="ttl-d">D5 · 10/5</span><span class="ttl-name">返哈</span></button>
+      <button class="ttl-node" data-target="day6" style="--dc:var(--d0)"><span class="ttl-dot"></span><span class="ttl-d">D6 · 10/6</span><span class="ttl-name">返程</span></button>
+    </div>
+  </header>
+
+  <!-- 1 · 此刻关注 -->
+  <section id="now">
+    <div class="now-card">
+      <div class="now-label">此刻关注 · NOW</div>
+      <div class="now-event" id="nowEvent">——</div>
+      <div class="now-sub" id="nowSub">——</div>
+      <div class="count">
+        <div class="cell"><span class="num" id="cdD">--</span><span class="unit">天</span></div>
+        <div class="cell"><span class="num" id="cdH">--</span><span class="unit">时</span></div>
+        <div class="cell"><span class="num" id="cdM">--</span><span class="unit">分</span></div>
+        <div class="cell"><span class="num sec" id="cdS">--</span><span class="unit">秒</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · 行程总览地图 -->
+  <section id="map">
+    <div class="sec-head"><span class="sec-no">02</span><h2>行程总览</h2><span class="sec-note">按天配色 · 标记每晚住宿</span></div>
+    <div class="map-card">
+      <svg viewBox="0 0 420 480" role="img" aria-label="行程总览地图 · 按真实经纬度绘制">
+        <defs>
+          <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="7" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="4"/>
+          </filter>
+          <filter id="rough2" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2.5"/>
+          </filter>
+        </defs>
+
+        <!-- 国境虚影（黑龙江为界河，偏移表示对岸） -->
+        <g filter="url(#rough2)" opacity=".5">
+          <path d="M410,207 C396,180 388,168 382,146 C374,118 368,88 360,55 C350,38 332,28 317,21 C300,12 284,2 270,-9" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="5 6"/>
+        </g>
+        <!-- 黑龙江（真实走向：萝北 → 太平沟三峡 → 嘉荫 → 西北向黑河） -->
+        <g filter="url(#rough)">
+          <path d="M404,213 C390,186 382,174 376,152 C368,124 362,94 354,61 C344,44 326,34 311,27 C294,18 278,8 264,-3" fill="none" stroke="#5b8fc9" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+          <path d="M404,213 C390,186 382,174 376,152 C368,124 362,94 354,61 C344,44 326,34 311,27 C294,18 278,8 264,-3" fill="none" stroke="#7fb0e0" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+        </g>
+        <text x="392" y="112" font-size="10" fill="var(--ink-3)" letter-spacing="2" transform="rotate(-76 392 112)">黑龙江 · 中俄边境</text>
+        <text x="96" y="150" font-size="10" fill="var(--ink-3)" letter-spacing="4" opacity=".8">小兴安岭林区</text>
+
+        <!-- 每日路线（沿真实公路走廊：D1/D5 经绥化·铁力·鹤岗，D2 沿 G331 江岸） -->
+        <g filter="url(#rough)" fill="none" stroke-linecap="round">
+          <path d="M40,440 Q60,390 74,334 Q95,305 160,293 Q250,278 343,249 Q365,240 380,224" stroke="var(--d1)" stroke-width="3.2"/>
+          <path d="M380,224 Q376,190 366,156 Q360,110 345,64" stroke="var(--d2)" stroke-width="3.2"/>
+          <path d="M345,64 Q320,50 301,40 Q290,70 284,116" stroke="var(--d3)" stroke-width="3.2"/>
+          <path d="M284,116 Q270,128 261,144 Q245,175 229,204" stroke="var(--d4)" stroke-width="3.2"/>
+          <path d="M229,204 Q255,222 276,243 Q245,268 211,288 Q185,295 160,293 Q110,300 74,334 Q55,390 40,440" stroke="var(--d5)" stroke-width="3.2"/>
+        </g>
+
+        <!-- 公路途经点（绥化 · 铁力 · 带岭 · 鹤岗） -->
+        <g fill="var(--ink-3)" opacity=".6">
+          <circle cx="74" cy="334" r="2.5"/>
+          <circle cx="160" cy="293" r="2.5"/>
+          <circle cx="211" cy="288" r="2.5"/>
+          <circle cx="343" cy="249" r="2.5"/>
+        </g>
+        <text x="343" y="266" font-size="9.5" fill="var(--ink-3)" text-anchor="middle" letter-spacing="1">鹤岗</text>
+
+        <!-- 途经点（真实投影位置 · 地名可点唤起高德） -->
+        <g font-family="var(--sans)">
+          <!-- 哈尔滨 -->
+          <a href="https://uri.amap.com/search?keyword=哈尔滨&city=哈尔滨&callnative=1">
+            <circle cx="40" cy="440" r="6.5" fill="var(--card)" stroke="var(--ink)" stroke-width="2"/>
+            <text x="52" y="444" font-size="12.5" font-weight="700" fill="var(--ink)">哈尔滨</text>
+          </a>
+          <!-- 金山鹿苑 -->
+          <a href="https://uri.amap.com/search?keyword=金山鹿苑&city=伊春&callnative=1">
+            <circle cx="276" cy="243" r="4.5" fill="var(--d5)"/>
+            <text x="286" y="247" font-size="11" fill="var(--ink-2)">金山鹿苑</text>
+          </a>
+          <!-- 伊春 -->
+          <a href="https://uri.amap.com/search?keyword=伊春市&city=伊春&callnative=1">
+            <circle cx="229" cy="204" r="6" fill="var(--card)" stroke="var(--d4)" stroke-width="2"/>
+            <text x="221" y="208" font-size="12" font-weight="700" fill="var(--ink)" text-anchor="end">伊春</text>
+          </a>
+          <!-- 五营 -->
+          <a href="https://uri.amap.com/search?keyword=五营国家森林公园&city=伊春&callnative=1">
+            <circle cx="261" cy="144" r="4" fill="var(--d4)" opacity=".65"/>
+            <text x="253" y="148" font-size="10.5" fill="var(--ink-3)" text-anchor="end">五营*</text>
+          </a>
+          <!-- 汤旺 -->
+          <a href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">
+            <circle cx="284" cy="116" r="6" fill="var(--card)" stroke="var(--d3)" stroke-width="2"/>
+            <text x="276" y="120" font-size="12" font-weight="700" fill="var(--ink)" text-anchor="end">汤旺</text>
+          </a>
+          <!-- 茅兰沟（行程最北点 49.1°N） -->
+          <a href="https://uri.amap.com/search?keyword=茅兰沟国家森林公园&city=伊春&callnative=1">
+            <circle cx="301" cy="40" r="4.5" fill="var(--d3)"/>
+            <text x="293" y="44" font-size="11" fill="var(--ink-2)" text-anchor="end">茅兰沟</text>
+          </a>
+          <!-- 嘉荫 -->
+          <a href="https://uri.amap.com/search?keyword=嘉荫县&city=伊春&callnative=1">
+            <circle cx="345" cy="64" r="6" fill="var(--card)" stroke="var(--d2)" stroke-width="2"/>
+            <text x="357" y="68" font-size="12" font-weight="700" fill="var(--ink)">嘉荫</text>
+          </a>
+          <!-- 龙江三峡 -->
+          <a href="https://uri.amap.com/search?keyword=龙江三峡&city=鹤岗&callnative=1">
+            <circle cx="366" cy="156" r="4" fill="var(--d2)"/>
+            <text x="358" y="160" font-size="11" fill="var(--ink-2)" text-anchor="end">龙江三峡</text>
+          </a>
+          <!-- 萝北 -->
+          <a href="https://uri.amap.com/search?keyword=萝北县&city=鹤岗&callnative=1">
+            <circle cx="380" cy="224" r="6" fill="var(--card)" stroke="var(--d1)" stroke-width="2"/>
+            <text x="372" y="228" font-size="12" font-weight="700" fill="var(--ink)" text-anchor="end">萝北</text>
+          </a>
+        </g>
+
+        <!-- 住宿标记（小房子） -->
+        <g fill="var(--accent)" stroke="none">
+          <path d="M14,414 l7,-6 7,6 v8 h-14 z"/>
+          <path d="M388,198 l7,-6 7,6 v8 h-14 z"/>
+          <path d="M322,82 l7,-6 7,6 v8 h-14 z"/>
+          <path d="M298,124 l7,-6 7,6 v8 h-14 z"/>
+          <path d="M241,196 l7,-6 7,6 v8 h-14 z"/>
+        </g>
+        <g font-size="9" fill="var(--ink-3)" letter-spacing="1">
+          <text x="52" y="458">住 9/30·10/5</text>
+          <text x="386" y="192" text-anchor="end">住 10/1</text>
+          <text x="318" y="86" text-anchor="end">住 10/2</text>
+          <text x="310" y="128">住 10/3</text>
+          <text x="253" y="200">住 10/4</text>
+        </g>
+
+        <!-- 比例尺（100 km ≈ 108px，按 48°N 投影） -->
+        <g stroke="var(--ink-3)" stroke-width="1.2">
+          <path d="M272,462 H380" />
+          <path d="M272,458 V466 M380,458 V466" />
+        </g>
+        <text x="326" y="454" font-size="9" fill="var(--ink-3)" text-anchor="middle" letter-spacing="1">100 km</text>
+
+        <!-- 指北针 -->
+        <g transform="translate(30,44)" stroke="var(--ink-2)" fill="none" stroke-width="1.4">
+          <circle r="11"/>
+          <path d="M0,-7 L4,5 L0,2 L-4,5 Z" fill="var(--ink-2)" stroke="none"/>
+          <text y="-16" text-anchor="middle" font-size="10" fill="var(--ink-2)" stroke="none">N</text>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <div class="lg"><span class="dot" style="background:var(--d1)"></span><span><b>D1 · 10/1</b> 哈尔滨 → 萝北</span><span class="km">480–505 km</span></div>
+        <div class="lg"><span class="dot" style="background:var(--d2)"></span><span><b>D2 · 10/2</b> 萝北 → 嘉荫</span><span class="km">≈224 km</span></div>
+        <div class="lg"><span class="dot" style="background:var(--d3)"></span><span><b>D3 · 10/3</b> 嘉荫 → 汤旺</span><span class="km">≈150 km</span></div>
+        <div class="lg"><span class="dot" style="background:var(--d4)"></span><span><b>D4 · 10/4</b> 汤旺 → 伊春</span><span class="km">150–180 km</span></div>
+        <div class="lg"><span class="dot" style="background:var(--d5)"></span><span><b>D5 · 10/5</b> 伊春 → 哈尔滨</span><span class="km">450–500 km</span></div>
+      </div>
+      <div class="map-cap">按真实经纬度等比绘制（48°N 投影）· 地名可点击唤起高德 · 路线走向为示意，导航以高德为准</div>
+    </div>
+  </section>
+
+  <!-- 3 · 已确认订单 -->
+  <section id="bookings">
+    <div class="sec-head"><span class="sec-no">03</span><h2>已确认订单</h2><span class="sec-note">机票 · 租车 · 酒店 · 门票</span></div>
+
+    <div class="subnav" id="bkTabs" role="tablist" aria-label="订单类型">
+      <button class="sn-tab active" data-tab="bk-trans" role="tab" aria-selected="true">大交通</button>
+      <button class="sn-tab" data-tab="bk-car" role="tab" aria-selected="false">租车</button>
+      <button class="sn-tab" data-tab="bk-hotel" role="tab" aria-selected="false">酒店</button>
+      <button class="sn-tab" data-tab="bk-ticket" role="tab" aria-selected="false">门票</button>
+    </div>
+    <div id="bkPanels">
+    <div class="tab-panel active" id="bk-trans">
+    <!-- 大交通 -->
+    <div class="bk-card">
+      <div class="bk-head" data-toggle>
+        <div>
+          <span class="bk-tag">大交通 · 全部已出票</span>
+          <div class="bk-title">9/30 集结哈尔滨 ｜ 10/6 分散返程</div>
+          <div class="bk-summary">去程 6 批（18:55 – 次日00:50）· 返程 5 批（08:45 – 19:55）· Lulu 返程待补充</div>
+        </div>
+        <button class="bk-btn" aria-expanded="true"><span class="bk-btn-t">收起</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="bk-body">
+      <div class="bk-group">去程 · 9/30（按抵达时间排序）</div>
+      <div class="fl"><span class="fl-t">18:55</span><div class="fl-main"><span class="who">QQ</span><span class="no">南航 CZ6929</span><span class="rt">长沙黄花T2 15:15 → 哈尔滨太平T2</span></div></div>
+      <div class="fl"><span class="fl-t">19:25</span><div class="fl-main"><span class="who">Lulu</span><span class="no">高铁 G123</span><span class="rt">北京朝阳 14:50 → 哈尔滨西 · 到站后前往机场酒店（约40km）</span></div></div>
+      <div class="fl"><span class="fl-t">20:40</span><div class="fl-main"><span class="who">菲利克斯</span><span class="no">长龙 GJ8991</span><span class="rt">杭州萧山T3 17:30 → 哈尔滨太平T2</span></div></div>
+      <div class="fl"><span class="fl-t">21:25</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">东航 MU5650</span><span class="rt">宁波栎社T2 17:55 → 哈尔滨太平T2</span></div></div>
+      <div class="fl"><span class="fl-t">23:25</span><div class="fl-main"><span class="who">Puzzle</span><span class="no">国航 CA3645</span><span class="rt">广州白云T3 17:05 → 哈尔滨太平T2 · 经烟台停约50分</span></div></div>
+      <div class="fl"><span class="fl-t">00:50</span><div class="fl-main"><span class="who">嘎子</span><span class="no">福州航 FU6631</span><span class="rt">福州长乐 19:35 → 哈尔滨太平T2 · 经停青岛 · 10/1 凌晨抵达</span></div><span class="fl-note">+1天</span></div>
+      <div class="bk-group">返程 · 10/6（按起飞时间排序）</div>
+      <div class="fl"><span class="fl-t">08:45</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">深航 ZH9759</span><span class="rt">哈尔滨太平T2 → 宁波栎社T2 13:55 · 经停临沂</span></div><span class="fl-note">自行打车</span></div>
+      <div class="fl"><span class="fl-t">13:30</span><div class="fl-main"><span class="who">菲利克斯</span><span class="no">首航 JD5378</span><span class="rt">哈尔滨太平T2 → 杭州萧山T3 17:00</span></div></div>
+      <div class="fl"><span class="fl-t">19:55</span><div class="fl-main"><span class="who">Puzzle · QQ</span><span class="no">南航 CZ6930</span><span class="rt">哈尔滨太平T2 → 长沙黄花T2 23:50</span></div></div>
+      <div class="fl"><span class="fl-t">19:55</span><div class="fl-main"><span class="who">嘎子</span><span class="no">山航 SC4752</span><span class="rt">哈尔滨太平T2 → 青岛胶东 22:15 · 10/7 06:50 SC4677 转武夷山</span></div></div>
+      <div class="fl"><span class="fl-t">待定</span><div class="fl-main"><span class="who">Lulu</span><span class="no">高铁</span><span class="rt">哈尔滨 → 北京 · 车票尚未开售，开售后补充</span></div><span class="fl-note">待补充</span></div>
+      </div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="bk-car">
+    <!-- 租车 -->
+    <div class="bk-card">
+      <span class="bk-tag">租车 · 神州</span>
+      <div class="bk-title">东风猛士 M817 ｜ 理想 L6</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">车型</span><span>猛士 M817（1.5 插电混 · 5座）＋ 理想 L6（增程 · 5座）</span></div>
+        <div class="r"><span class="k">取车</span><span>10/1 猛士 09:30 · 理想 10:00 ｜ <a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨站&city=哈尔滨&callnative=1">哈尔滨火车站南广场自助点</a></span></div>
+        <div class="r"><span class="k">还车</span><span>10/6 同时间同网点（09:30 / 10:00）</span></div>
+        <div class="r"><span class="k">费用</span><span>猛士 ¥3,652 ＋ 理想 ¥4,910（均含优选服务包与全程无忧保障）</span></div>
+        <div class="r"><span class="k">提醒</span><span>取车前完成身份认证与押金；车牌取车前自动显示</span></div>
+        <div class="r"><span class="k">客服</span><span><a href="tel:4006166666">神州租车 400-616-6666</a></span></div>
+      </div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="bk-hotel">
+    <!-- 酒店 -->
+    <div class="bk-card">
+      <div class="bk-head" data-toggle>
+        <div>
+          <span class="bk-tag">住宿 · 6 晚已全部预订</span>
+          <div class="bk-title">每晚住哪</div>
+          <div class="bk-summary">9/30 机场 → 萝北 → 嘉荫 → 汤旺 → 伊春 → 10/5 道外区</div>
+        </div>
+        <button class="bk-btn" aria-expanded="true"><span class="bk-btn-t">收起</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="bk-body">
+      <div class="bk-group">Night 1 · 9/30 哈尔滨（机场旁）</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">酒店</span><span><a class="geo" href="https://uri.amap.com/search?keyword=豪庭酒店哈尔滨太平国际机场店&city=哈尔滨&callnative=1">豪庭酒店（哈尔滨太平国际机场店）</a>· 商务双床房 × 2间 · ¥372</span></div>
+        <div class="r"><span class="k">地址</span><span>道里区太平镇先富村大张家屯 哈双路大张家公交站东南约100米（距机场约3.8km，有免费接送机）</span></div>
+        <div class="r"><span class="k">电话</span><span><a href="tel:045182516777">0451-82516777</a>（24小时前台 · 落地可叫接机）</span></div>
+        <div class="r"><span class="k">取消</span><span>9/30 18:00 前免费取消 · 12:00 后入住</span></div>
+      </div>
+      <div class="bk-group">Night 2 · 10/1 萝北</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">酒店</span><span><a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆（凤翔国际店）</a>· 特享双床房 × 2间 ＋ 幽然家庭房 × 1间 · ¥456＋¥280</span></div>
+        <div class="r"><span class="k">地址</span><span>萝北县景观路85号（凤翔镇）</span></div>
+        <div class="r"><span class="k">电话</span><span>平台订单内联系酒店</span></div>
+      </div>
+      <div class="bk-group">Night 3 · 10/2 嘉荫</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">民宿</span><span><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">龙之梦民宿</a> · 整套 108㎡ 3居7床3卫1厅 · ¥1,446</span></div>
+        <div class="r"><span class="k">地址</span><span>伊春嘉荫县林业小区1号楼</span></div>
+        <div class="r"><span class="k">入住</span><span>14:00 后入住 / 12:00 前离店 · 平台内联系房东</span></div>
+      </div>
+      <div class="bk-group">Night 4 · 10/3 汤旺</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">民宿</span><span><a class="geo" href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">汤旺龙源小院</a> · 整院平房 · ¥1,680</span></div>
+        <div class="r"><span class="k">地址</span><span>伊春汤旺县汤旺河区中心委1组26号</span></div>
+        <div class="r"><span class="k">取消</span><span>9/26 18:00 前免费取消 · 平台内联系房东</span></div>
+      </div>
+      <div class="bk-group">Night 5 · 10/4 伊春</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">民宿</span><span><a class="geo" href="https://uri.amap.com/search?keyword=伊春市伊美区前进街道&city=伊春&callnative=1">伊春整栋别墅（四层轻奢独栋）</a>· 整套 260㎡ 4室8床4卫 · 住7人 · ¥1,510</span></div>
+        <div class="r"><span class="k">地址</span><span>伊春伊美区前进街道 · 14:00 后办理入住</span></div>
+        <div class="r"><span class="k">取消</span><span>10/4 00:00 前免费取消 · 平台内联系房东</span></div>
+      </div>
+      <div class="bk-group">Night 6 · 10/5 哈尔滨（道外区）</div>
+      <div class="bk-rows">
+        <div class="r"><span class="k">民宿</span><span><a class="geo" href="https://uri.amap.com/search?keyword=宝宇天邑澜湾&city=哈尔滨&callnative=1">咪吖高端民宿（临中央大街 · 宝宇天邑澜湾）</a>· ¥1,503</span></div>
+        <div class="r"><span class="k">地址</span><span>道外区宝宇天邑澜湾（详细门牌见订单，本页不展示）</span></div>
+        <div class="r"><span class="k">取消</span><span>10/5 18:00 前免费取消 · 平台内联系房东</span></div>
+      </div>
+      </div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="bk-ticket">
+    <!-- 门票 -->
+    <div class="bk-card">
+      <div class="bk-head" data-toggle>
+        <div>
+          <span class="bk-tag">门票 · 9/25–27 统一购可退票</span>
+          <div class="bk-title">景区票价与购票策略</div>
+          <div class="bk-summary">茅兰沟 ¥85 · 汤旺河 ¥115 · 金山鹿苑 ≈¥50 · 五营 ≈¥78（条件式）· 恐龙公园 ¥80（可删除）</div>
+        </div>
+        <button class="bk-btn" aria-expanded="true"><span class="bk-btn-t">收起</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="bk-body">
+      <div class="tk"><span class="nm">茅兰沟国家森林公园</span><span class="pr">¥85/人</span><span class="badge must">必去</span><span class="act">10/3 使用 · 提前购可退票</span></div>
+      <div class="tk"><span class="nm">汤旺河林海奇石景区</span><span class="pr">¥115/人</span><span class="badge must">必去</span><span class="act">10/4 首批入园 · 提前购可退票</span></div>
+      <div class="tk"><span class="nm">金山鹿苑</span><span class="pr">≈¥50/人</span><span class="badge must">必去</span><span class="act">10/5 使用 · 提前购可退票</span></div>
+      <div class="tk"><span class="nm">五营国家森林公园</span><span class="pr">≈¥78/人</span><span class="badge cond">条件式</span><span class="act">只买「未使用可退」票</span></div>
+      <div class="tk"><span class="nm">恐龙国家地质公园</span><span class="pr">¥80/人</span><span class="badge drop">可删除</span><span class="act">视 10/2 时间与体力现场定</span></div>
+      <div class="bk-sub" style="margin-top:8px">截至 8/20 未查到 2026 国庆强制分时预约公告；若景区发布实名时段制，以 9 月下旬官方公告为准。龙江三峡 / G331 / 嘉荫公共江岸 / 名山江畔无需购票，但需留意道路施工与边境管理要求。</div>
+      </div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- 4 · 逐日行程 -->
+  <section id="days">
+    <div class="sec-head"><span class="sec-no">04</span><h2>逐日行程</h2><span class="sec-note">左时间 · 右内容 · 🎫 为需提前订票</span></div>
+    <div class="subnav day-tabs" id="dayTabs" role="tablist" aria-label="逐日切换">
+      <button class="sn-tab active" data-tab="day0" role="tab" aria-selected="true" style="--dc:var(--d0)"><b>D0</b>9/30</button>
+      <button class="sn-tab" data-tab="day1" role="tab" aria-selected="false" style="--dc:var(--d1)"><b>D1</b>10/1</button>
+      <button class="sn-tab" data-tab="day2" role="tab" aria-selected="false" style="--dc:var(--d2)"><b>D2</b>10/2</button>
+      <button class="sn-tab" data-tab="day3" role="tab" aria-selected="false" style="--dc:var(--d3)"><b>D3</b>10/3</button>
+      <button class="sn-tab" data-tab="day4" role="tab" aria-selected="false" style="--dc:var(--d4)"><b>D4</b>10/4</button>
+      <button class="sn-tab" data-tab="day5" role="tab" aria-selected="false" style="--dc:var(--d5)"><b>D5</b>10/5</button>
+      <button class="sn-tab" data-tab="day6" role="tab" aria-selected="false" style="--dc:var(--d0)"><b>D6</b>10/6</button>
+    </div>
+    <div id="dayPanels">
+    <div class="tab-panel active" id="day0">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d0)">D0</div>
+        <div>
+          <div class="day-title">集结日 · 各地 → 哈尔滨</div>
+          <div class="day-date">9/30 周三 · 6 批抵达</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨太平国际机场&city=哈尔滨&callnative=1">太平机场</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=豪庭酒店哈尔滨太平国际机场店&city=哈尔滨&callnative=1">豪庭酒店</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.241474,45.611938,哈尔滨太平国际机场&to=126.245355,45.640956,豪庭酒店(太平机场店)&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">太平机场 → 豪庭酒店 · 落地电酒店免费接机</span><span class="lg-d">约15分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.577304,45.707228,哈尔滨西站&to=126.245355,45.640956,豪庭酒店(太平机场店)&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">哈尔滨西站 → 豪庭酒店 · Lulu 高铁路线</span><span class="lg-d">约40 km</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">逐段点开即导航 · 高德单次只规划一段，全天途经请按段连续使用</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">14:50</span><span class="c">Lulu G123 北京朝阳 → 哈尔滨西 19:25（到站后前往机场酒店，约40km）</span></div>
+        <div class="ev"><span class="t">18:00</span><span class="c">前：电话预订 10/1 萝北晚餐（酒店餐厅/东北菜，晚到即途中热食）</span></div>
+        <div class="ev"><span class="t">18:55</span><span class="c">QQ 落地太平T2（CZ6929）· 可电酒店免费接机</span></div>
+        <div class="ev"><span class="t">20:40</span><span class="c">菲利克斯落地太平T2（GJ8991）</span></div>
+        <div class="ev"><span class="t">21:25</span><span class="c">lpf、球球落地太平T2（MU5650）</span></div>
+        <div class="ev"><span class="t">23:25</span><span class="c">Puzzle 落地太平T2（CA3645 · 经烟台）</span></div>
+        <div class="ev"><span class="t">00:50</span><span class="c">嘎子落地太平T2（FU6631 · 10/1 凌晨）· 全员到齐</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=豪庭酒店哈尔滨太平国际机场店&city=哈尔滨&callnative=1">豪庭酒店（太平机场店）</a> · <a href="tel:045182516777" style="color:inherit">0451-82516777</a></div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day1">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d1)">D1</div>
+        <div>
+          <div class="day-title">哈尔滨 → 萝北</div>
+          <div class="day-date">10/1 周四 · 480–505 km / 6–8 h</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=豪庭酒店哈尔滨太平国际机场店&city=哈尔滨&callnative=1">豪庭酒店</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨站&city=哈尔滨&callnative=1">哈尔滨站·南广场取车</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.245355,45.640956,豪庭酒店(太平机场店)&to=126.63269,45.761621,哈尔滨站南广场&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">豪庭酒店 → 哈尔滨站南广场 · 司机组取车</span><span class="lg-d">约40分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.63269,45.761621,哈尔滨站南广场&to=130.836365,47.564084,凤南华府宾馆(凤翔国际店)&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">哈尔滨站 → 萝北凤南华府宾馆 · 全天主路段</span><span class="lg-d">480–505 km</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">逐段点开即导航 · 出发前按高德与交管公告复核路况</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">08:30</span><span class="c">分两拨：司机组（Puzzle、菲利克斯）网约车 → <a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨站&city=哈尔滨&callnative=1">火车站南广场</a>取车；采购组（其余5人）→ 市中心超市买补给</span></div>
+        <div class="ev"><span class="t">09:30</span><span class="c">取车① 东风猛士 M817</span></div>
+        <div class="ev"><span class="t">10:00</span><span class="c">取车② 理想 L6</span></div>
+        <div class="ev"><span class="t">10:30</span><span class="c">司机接采购组，汇合出发</span></div>
+        <div class="ev"><span class="t">10:45</span><span class="c">哈尔滨 → 萝北，午餐车内解决</span></div>
+        <div class="ev"><span class="t">18:00</span><span class="c">抵达萝北入住；晚餐酒店餐厅（9/30 已预留）</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a>（萝北景观路85号）</div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day2">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d2)">D2</div>
+        <div>
+          <div class="day-title">萝北 → 龙江三峡 → 嘉荫</div>
+          <div class="day-date">10/2 周五 · ≈224 km / 5.5–7.5 h</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=龙江三峡&city=鹤岗&callnative=1">龙江三峡</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">嘉荫·林业小区民宿</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=130.836365,47.564084,凤南华府宾馆(凤翔国际店)&to=130.664558,48.127623,龙江三峡&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">萝北 → 龙江三峡 · G331 边境公路</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=130.664558,48.127623,龙江三峡&to=130.404957,48.896262,嘉荫县林业小区&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">龙江三峡 → 嘉荫民宿 · 沿江南下</span><span class="lg-d">约2 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg cond" href="https://uri.amap.com/navigation?from=130.664558,48.127623,龙江三峡&to=130.255843,48.855724,嘉荫恐龙国家地质公园&mode=car&callnative=1"><span class="lg-no">3</span><span class="lg-t">条件式 · 龙江三峡 → 恐龙公园（可删除项）</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">G331 部分路段可能施工 · 出发前按高德与交管公告复核</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">08:00</span><span class="c">出发，沿 G331 边境公路北上，黑龙江岸线随停随拍</span></div>
+        <div class="ev"><span class="t">上午</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=龙江三峡&city=鹤岗&callnative=1">龙江三峡</a>（无需购票）—— 黑龙江、山脊与边境公路</span></div>
+        <div class="ev"><span class="t">午后</span><span class="c">机动：<a class="geo" href="https://uri.amap.com/search?keyword=嘉荫恐龙国家地质公园&city=伊春&callnative=1">恐龙国家地质公园</a>（¥80/人，可删除项，看时间体力）</span></div>
+        <div class="ev"><span class="t">16:57</span><span class="c">嘉荫江畔暮色 / 日落（光线以临行复核为准）</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">入住嘉荫民宿；晚餐 江鱼/铁锅炖（前夜预点 · 15:30 复核 · 问清称重）</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">龙之梦民宿</a>（嘉荫林业小区）</div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day3">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d3)">D3</div>
+        <div>
+          <div class="day-title">嘉荫 → 茅兰沟 → 汤旺</div>
+          <div class="day-date">10/3 周六 · ≈150 km / 3–4 h · 徒步 6–9 km</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">嘉荫民宿</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=茅兰沟国家森林公园&city=伊春&callnative=1">茅兰沟</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">汤旺·龙源小院</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=130.404957,48.896262,嘉荫县林业小区&to=129.763395,49.093116,茅兰沟国家森林公园&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">嘉荫 → 茅兰沟国家森林公园</span><span class="lg-d">约1 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=129.763395,49.093116,茅兰沟国家森林公园&to=129.561964,48.456695,汤旺县&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">茅兰沟 → 汤旺 · 龙源小院</span><span class="lg-d">约1 h</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">逐段点开即导航 · 林区清晨注意桥面暗冰</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">05:20</span><span class="c">机动：嘉荫江畔日出（条件式，能起就去）</span></div>
+        <div class="ev"><span class="t">08:30</span><span class="c"><span class="ticket">已购票</span>出发 → <a class="geo" href="https://uri.amap.com/search?keyword=茅兰沟国家森林公园&city=伊春&callnative=1">茅兰沟国家森林公园</a>（¥85/人）</span></div>
+        <div class="ev"><span class="t">全天</span><span class="c">茅兰沟峡谷水景：化石纹理、瀑布慢门、30 秒独立环境声</span></div>
+        <div class="ev"><span class="t">15:00</span><span class="c">出发 → 汤旺（约1h）</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">入住汤旺龙源小院；晚餐 森林家宴/杀猪菜（民宿代订 · 14:30 复核 · 不食野蘑菇）</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">汤旺龙源小院</a></div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day4">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d4)">D4</div>
+        <div>
+          <div class="day-title">汤旺 →（五营*）→ 伊春</div>
+          <div class="day-date">10/4 周日 · 150–180 km / 3–4 h · 徒步 8–10 km</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">汤旺</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=汤旺河林海奇石景区&city=伊春&callnative=1">汤旺河石林</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=五营国家森林公园&city=伊春&callnative=1">五营*</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=伊春市伊美区&city=伊春&callnative=1">伊春·伊美区</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=129.561964,48.456695,汤旺县&to=129.446123,48.445762,汤旺河林海奇石景区&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">汤旺 → 石林景区 · 首批入园</span><span class="lg-d">约15分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=129.446123,48.445762,汤旺河林海奇石景区&to=128.906997,47.728527,伊春市伊美区&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">石林 → 伊春别墅 · 不去五营走这条</span><span class="lg-d">约2 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg cond" href="https://uri.amap.com/navigation?from=129.446123,48.445762,汤旺河林海奇石景区&to=129.274664,48.22796,五营红松林海景区&mode=car&callnative=1"><span class="lg-no">3</span><span class="lg-t">条件式 · 石林 → 五营</span><span class="lg-d">约50分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg cond" href="https://uri.amap.com/navigation?from=129.274664,48.22796,五营红松林海景区&to=128.906997,47.728527,伊春市伊美区&mode=car&callnative=1"><span class="lg-no">4</span><span class="lg-t">条件式 · 五营 → 伊春别墅</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">五营为条件式 · 六项条件全达标才进，导航按需取用</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">07:30</span><span class="c"><span class="ticket">已购票</span><a class="geo" href="https://uri.amap.com/search?keyword=汤旺河林海奇石景区&city=伊春&callnative=1">汤旺河林海奇石景区</a> 首批入园（¥115/人）—— 一线天竖构图、人物与巨石比例</span></div>
+        <div class="ev"><span class="t">中午</span><span class="c">汤旺河河岸 / 林区晨雾机位（视天气）</span></div>
+        <div class="ev"><span class="t">午后</span><span class="c"><span class="ticket cond">条件式</span><a class="geo" href="https://uri.amap.com/search?keyword=五营国家森林公园&city=伊春&callnative=1">五营国家森林公园</a>（≈¥78/人，六项条件全达标才进，只买可退票）</span></div>
+        <div class="ev"><span class="t">15:30</span><span class="c">按五营是否成行调整晚餐浮动桌</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">入住伊春整栋别墅；晚餐 铁锅炖/烧烤</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=伊春市伊美区前进街道&city=伊春&callnative=1">伊春整栋别墅</a>（伊美区前进街道）</div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day5">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d5)">D5</div>
+        <div>
+          <div class="day-title">伊春 → 金山鹿苑 → 哈尔滨</div>
+          <div class="day-date">10/5 周一 · 450–500 km / 8–10 h（含游览）· 徒步 5–8 km</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=伊春市伊美区&city=伊春&callnative=1">伊春</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=金山鹿苑&city=伊春&callnative=1">金山鹿苑</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=宝宇天邑澜湾&city=哈尔滨&callnative=1">哈尔滨·宝宇天邑澜湾</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=128.906997,47.728527,伊春市伊美区&to=129.491744,47.40402,金山鹿苑&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">伊春 → 金山鹿苑 · 赶早喂鹿</span><span class="lg-d">约1 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=129.491744,47.40402,金山鹿苑&to=126.631288,45.78162,宝宇天邑澜湾&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">金山鹿苑 → 哈尔滨民宿 · 乌带公路返哈</span><span class="lg-d">4.5–5.5 h</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">最长驾驶日 · 每 2 小时换驾驶员，服务区休整</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">08:00</span><span class="c"><span class="ticket">已购票</span>出发 → <a class="geo" href="https://uri.amap.com/search?keyword=金山鹿苑&city=伊春&callnative=1">金山鹿苑</a>（≈¥50/人）—— 鹿群×草地×秋林×人物互动；无人机不飞</span></div>
+        <div class="ev"><span class="t">11:30</span><span class="c">上乌带公路返哈（必拍路段），午餐车内/服务区</span></div>
+        <div class="ev"><span class="t">傍晚</span><span class="c">抵达哈尔滨，入住咪吖民宿（道外区 · 临中央大街）</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">晚餐 东北菜/锅烙（9/24–25 已预约 7 人桌，排队30分钟即换店）</span></div>
+      </div>
+      <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=宝宇天邑澜湾&city=哈尔滨&callnative=1">咪吖民宿</a>（宝宇天邑澜湾）</div>
+    </div>
+
+    </div>
+    <div class="tab-panel" id="day6">
+    <div class="day-card">
+      <div class="day-head">
+        <div class="day-badge" style="background:var(--d0)">D6</div>
+        <div>
+          <div class="day-title">返程日 · 哈尔滨半日 + 分散离港</div>
+          <div class="day-date">10/6 周二 · 还车 + 城市漫游</div>
+        </div>
+        <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="route-body">
+        <div class="route-inner">
+          <div class="route-stops">
+            <a class="geo" href="https://uri.amap.com/search?keyword=宝宇天邑澜湾&city=哈尔滨&callnative=1">民宿</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨站&city=哈尔滨&callnative=1">哈尔滨站·还车</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=中央大街&city=哈尔滨&callnative=1">中央大街</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨太平国际机场&city=哈尔滨&callnative=1">太平机场</a>
+          </div>
+          <div class="route-legs">
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.631288,45.78162,宝宇天邑澜湾&to=126.63269,45.761621,哈尔滨站南广场&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">民宿 → 哈尔滨站南广场 · 09:30 还车</span><span class="lg-d">约15分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.63269,45.761621,哈尔滨站南广场&to=126.618958,45.773941,中央大街&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">哈尔滨站 → 中央大街 · 城市漫游</span><span class="lg-d">约10分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=126.618958,45.773941,中央大街&to=126.241474,45.611938,哈尔滨太平国际机场&mode=car&callnative=1"><span class="lg-no">3</span><span class="lg-t">中央大街 → 太平机场 · 按航班分批出发</span><span class="lg-d">约50分钟</span><span class="lg-go">导航 ›</span></a>
+          </div>
+          <div class="route-cap">返程高峰 · 去机场预留足量时间，打车可直接用此链接</div>
+        </div>
+      </div>
+      <div class="tl">
+        <div class="ev"><span class="t">07:00</span><span class="c">lpf、球球自行打车 → <a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨太平国际机场&city=哈尔滨&callnative=1">太平机场</a>（ZH9759 08:45 起飞）</span></div>
+        <div class="ev"><span class="t">09:30</span><span class="c">还车：猛士 09:30 / 理想 10:00（<a class="geo" href="https://uri.amap.com/search?keyword=哈尔滨站&city=哈尔滨&callnative=1">火车站南广场</a>）；行李寄存民宿或车站</span></div>
+        <div class="ev"><span class="t">白天</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=中央大街&city=哈尔滨&callnative=1">中央大街</a> / <a class="geo" href="https://uri.amap.com/search?keyword=圣索菲亚教堂&city=哈尔滨&callnative=1">圣索菲亚教堂</a> / <a class="geo" href="https://uri.amap.com/search?keyword=防洪纪念塔&city=哈尔滨&callnative=1">防洪纪念塔</a>·松花江畔（机动：红专街早市、中华巴洛克）</span></div>
+        <div class="ev"><span class="t">11:30</span><span class="c">菲利克斯前往机场（JD5378 13:30）</span></div>
+        <div class="ev"><span class="t">17:30</span><span class="c">Puzzle、QQ、嘎子前往机场（19:55 起飞）</span></div>
+        <div class="ev"><span class="t">待定</span><span class="c">Lulu 返程车次（车票尚未开售，开售后补充）</span></div>
+      </div>
+      <div class="stay-line">✈️&nbsp; 全员行李白天寄存 · 按航班分批前往机场/车站</div>
+    </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- 5 · 待办清单 -->
+  <section id="todos">
+    <div class="sec-head"><span class="sec-no">05</span><h2>待办清单</h2><span class="sec-note">办完一项告诉我，我改页面</span></div>
+    <div class="bk-card">
+      <div class="todo"><span class="dl">09-24~25</span><span>预约 10/5 哈尔滨晚餐 7 人桌（东北菜/锅烙）</span><span class="ow">小飞龙、Lu大姐</span></div>
+      <div class="todo"><span class="dl">09-25~27</span><span>购景区门票（茅兰沟/汤旺河/金山鹿苑可退票；五营只买可退票）</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">09-26 18:00</span><span>确认保留汤旺龙源小院（免费取消截止）</span><span class="ow">Lu大姐、咕小妹、Q小妹</span></div>
+      <div class="todo"><span class="dl">09-28</span><span>释放重复订单（住宿/车辆备选）</span><span class="ow">全员</span></div>
+      <div class="todo"><span class="dl">09-29 10:00</span><span>确认保留两笔租车（免费取消截止）· 完成身份认证与押金</span><span class="ow">菲利克斯</span></div>
+      <div class="todo"><span class="dl">09-30 18:00</span><span>电话预订 10/1 萝北晚餐 · 确认豪庭酒店保留（免费取消截止）</span><span class="ow">小飞龙、Lu大姐</span></div>
+      <div class="todo"><span class="dl">取车前</span><span>两车车牌自动显示后同步到群里 · 填写车次信息</span><span class="ow">菲利克斯</span></div>
+      <div class="todo"><span class="dl">出发前</span><span>无人机 UOM 空域查询 + 实名登记激活（边境默认不飞）</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">每日出发前</span><span>按高德与交管公告复核封路、施工（G331）与实时拥堵</span><span class="ow">鸭尼克</span></div>
+      <div class="todo"><span class="dl">开售后</span><span>Lulu 购买 10/6 返程车票并同步车次时间</span><span class="ow">Lulu</span></div>
+    </div>
+  </section>
+
+  <!-- 6 · 实用贴士 -->
+  <section id="tips">
+    <div class="sec-head"><span class="sec-no">06</span><h2>实用贴士</h2><span class="sec-note">天气 · 穿衣 · 无人机 · 餐饮 · 拍摄 · 安全</span></div>
+    <div class="wx-card">
+      <div class="wx-head"><h3>天气 · 五城逐日预报</h3><span class="wx-src" id="wxSrc">中国气象局 · 加载中…</span></div>
+      <div id="wxBody"><div class="wx-loading">正在获取中国气象局数据…</div></div>
+      <div class="wx-cap">D0–D6 为行程日 · 行程日进入 7 天预报窗口后自动标注 · 打开页面即更新，离线显示最近缓存</div>
+    </div>
+    <div class="tip-grid">
+      <div class="tip-card">
+        <h3>穿衣 · 三层随时加减</h3>
+        <ul>
+          <li>规划温区 -3°→15°C（非预报）：贴身排汗 + 抓绒/薄羽绒机动 + 挡风防雨外壳</li>
+          <li>防滑徒步鞋 + 两双轮换袜，不穿新鞋上路</li>
+          <li>薄帽/手套/脖套/墨镜/润唇膏放随身包；车内不穿厚羽绒驾驶</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>无人机 · 默认不飞</h3>
+        <ul>
+          <li>边境（萝北/名山/龙江三峡/G331/嘉荫）默认不飞</li>
+          <li>茅兰沟/汤旺河/五营/溪水：UOM空域+现场许可+天气+客流 四项全过才飞；金山鹿苑不飞</li>
+          <li>哈尔滨机场周边与城区不飞</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>餐饮 · 三条硬规则</h3>
+        <ul>
+          <li>驾驶员零酒精；江鱼先问品种、单价与整锅重量</li>
+          <li>不吃自行采摘或来源不明的野生蘑菇</li>
+          <li>每车 8–10 瓶水 + 保温壶；10/2–10/4 午餐默认车内完成</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>拍摄 · 完成即收机</h3>
+        <ul>
+          <li>嘉荫 10/2 日落约 16:57；10/3 日出约 05:20（临行复核）</li>
+          <li>每日最少素材：1 建立镜头 + 2 中景 + 4 细节 + 2 动作 + 30s 环境声 + 1 七人合影</li>
+          <li>边境区域拍摄避免对准口岸设施与俄方一侧</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>安全 · 不突破体力线</h3>
+        <ul>
+          <li>每日徒步上限 5–10km；长驾驶日每 2 小时换驾驶员</li>
+          <li>两车保持位置共享；9 月末林区清晨可降至 -3°C，注意桥面暗冰</li>
+          <li>常用电话：神州租车 400-616-6666 · 铁路 12306 · 南航 95539 · 国航 95583 · 东航 95530 · 深航 95361 · 长龙 956199 · 首航 95375 · 山航 95369 · 福州航 95071666</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · 拍摄装备 -->
+  <section id="gear">
+    <div class="sec-head"><span class="sec-no">07</span><h2>拍摄装备</h2><span class="sec-note">按人清点 · 出发前核对</span></div>
+    <div class="bk-card">
+      <div class="gear"><span class="who">嘎子</span><span class="what">大疆 Mini 5 Pro 无人机 ＋ Pocket 4 Pro</span><span class="tag">无人机 ×1</span></div>
+      <div class="gear"><span class="who">球球</span><span class="what">胶片机 ＋ 胶卷 × 2</span><span class="tag">胶片</span></div>
+      <div class="gear"><span class="who">QQ</span><span class="what">佳能 R5 Mark II ＋ 50mm 定（犹豫中）、instax mini99 拍立得</span><span class="tag">待定</span></div>
+      <div class="gear"><span class="who">Lulu</span><span class="what">大疆 Pocket 3</span><span class="tag">视频</span></div>
+      <div class="gear"><span class="who">lpf</span><span class="what">索尼 A7M4 ＋ 24-70mm G Master</span><span class="tag">主力</span></div>
+      <div class="bk-sub" style="margin-top:10px">无人机全队仅 1 台（嘎子）：边境默认不飞，UOM 空域＋现场许可＋天气＋客流四项全过才飞，金山鹿苑不飞（详见贴士）。Puzzle、菲利克斯的设备信息待补充。</div>
+    </div>
+  </section>
+
+  <footer>小兴安岭秋行手册 · 7 人 2 车 · 2026 国庆</footer>
+</div>
+
+<script>
+/* ============ 卡片收起/展开 ============ */
+document.querySelectorAll('[data-toggle]').forEach(function(h){
+  h.addEventListener('click', function(){
+    var card = h.closest('.bk-card, .day-card');
+    if (!card) return;
+    var collapsed = card.classList.toggle('collapsed');
+    var t = h.querySelector('.bk-btn-t'); if (t) t.textContent = collapsed ? '展开' : '收起';
+    var b = h.querySelector('.bk-btn'); if (b) b.setAttribute('aria-expanded', String(!collapsed));
+  });
+});
+
+/* ============ 顶部导航 · 滚动侦测 ============ */
+(function(){
+  var links = [].slice.call(document.querySelectorAll('.tn-link'));
+  var byId = {};
+  links.forEach(function(l){ byId[l.getAttribute('data-spy')] = l; });
+  var bar = document.querySelector('.topnav-inner');
+  function activate(id){
+    links.forEach(function(l){ l.classList.remove('active'); l.removeAttribute('aria-current'); });
+    var l = byId[id];
+    if (!l) return;
+    l.classList.add('active');
+    l.setAttribute('aria-current', 'true');
+    if (bar) bar.scrollTo({ left: l.offsetLeft - bar.clientWidth / 2 + l.offsetWidth / 2, behavior: 'smooth' });
+  }
+  if ('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) activate(en.target.id); });
+    }, { rootMargin: '-25% 0px -60% 0px', threshold: 0 });
+    ['now','map','bookings','days','todos','tips','gear'].forEach(function(id){
+      var el = document.getElementById(id); if (el) obs.observe(el);
+    });
+  }
+  links.forEach(function(l){
+    l.addEventListener('click', function(){ activate(l.getAttribute('data-spy')); });
+  });
+})();
+
+/* ============ 模块内标签切换 ============ */
+function setupTabs(navEl, panels){
+  var tabs = [].slice.call(navEl.querySelectorAll('.sn-tab'));
+  function show(id){
+    tabs.forEach(function(x){
+      var on = x.getAttribute('data-tab') === id;
+      x.classList.toggle('active', on);
+      x.setAttribute('aria-selected', String(on));
+      if (on) navEl.scrollTo({ left: x.offsetLeft - navEl.clientWidth / 2 + x.offsetWidth / 2, behavior: 'smooth' });
+    });
+    panels.forEach(function(p){ p.classList.toggle('active', p.id === id); });
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ show(t.getAttribute('data-tab')); }); });
+  return show;
+}
+var bkShow = setupTabs(document.getElementById('bkTabs'), [].slice.call(document.querySelectorAll('#bkPanels .tab-panel')));
+var dayShow = setupTabs(document.getElementById('dayTabs'), [].slice.call(document.querySelectorAll('#dayPanels .tab-panel')));
+
+/* ============ 行程时间轴 · 进度与跳转 ============ */
+var TL_DAYS = [
+  { id: 'day0', date: '2026-09-30' }, { id: 'day1', date: '2026-10-01' },
+  { id: 'day2', date: '2026-10-02' }, { id: 'day3', date: '2026-10-03' },
+  { id: 'day4', date: '2026-10-04' }, { id: 'day5', date: '2026-10-05' },
+  { id: 'day6', date: '2026-10-06' }
+];
+var TL_START = new Date('2026-09-30T00:00:00+08:00').getTime();
+var TL_END = new Date('2026-10-07T00:00:00+08:00').getTime();
+function todayStr(){
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function updTimeline(){
+  var now = Date.now();
+  var p = Math.max(0, Math.min(1, (now - TL_START) / (TL_END - TL_START)));
+  document.getElementById('ttlFill').style.width = (p * 100).toFixed(1) + '%';
+  var t = todayStr();
+  TL_DAYS.forEach(function(d){
+    var n = document.querySelector('.ttl-node[data-target="' + d.id + '"]');
+    if (!n) return;
+    n.classList.toggle('past', d.date < t);
+    n.classList.toggle('current', d.date === t);
+  });
+}
+document.querySelectorAll('.ttl-node').forEach(function(n){
+  n.addEventListener('click', function(){
+    var id = n.getAttribute('data-target');
+    dayShow(id);
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+updTimeline(); setInterval(updTimeline, 60000);
+/* 旅行期间打开页面，自动定位到当天 */
+(function(){
+  var t = todayStr();
+  for (var i = 0; i < TL_DAYS.length; i++){
+    if (TL_DAYS[i].date === t){ dayShow(t === TL_DAYS[0].date ? 'day0' : TL_DAYS[i].id); break; }
+  }
+})();
+
+/* ============ 当日路线展开 ============ */
+document.querySelectorAll('[data-route]').forEach(function(b){
+  b.addEventListener('click', function(){
+    var card = b.closest('.day-card');
+    if (!card) return;
+    var open = card.classList.toggle('route-open');
+    var t = b.querySelector('.route-btn-t'); if (t) t.textContent = open ? '收起' : '路线';
+    b.setAttribute('aria-expanded', String(open));
+  });
+});
+
+/* ============ 天气 · 中国气象局 ============ */
+var WX_CITIES = [
+  { name: '哈尔滨', id: '50953' },
+  { name: '萝北',   id: '50776' },
+  { name: '嘉荫',   id: '50673' },
+  { name: '汤旺',   id: '50674' },
+  { name: '伊春',   id: '50774' }
+];
+var WX_TRIP = { '2026/09/30':'D0','2026/10/01':'D1','2026/10/02':'D2','2026/10/03':'D3','2026/10/04':'D4','2026/10/05':'D5','2026/10/06':'D6' };
+var WX_KEY = 'wxCacheV1';
+function wxColor(t){
+  if (/雷/.test(t)) return '#7c5cd6';
+  if (/雨夹雪/.test(t)) return '#5b8fc9';
+  if (/雪/.test(t)) return '#7fb0e0';
+  if (/雨/.test(t)) return '#2f6fdb';
+  if (/晴/.test(t)) return '#e8a13a';
+  if (/多云/.test(t)) return '#8b93a1';
+  if (/雾|霾/.test(t)) return '#b0a58a';
+  return '#6e7787';
+}
+function wxRender(data, stamp, stale){
+  var body = document.getElementById('wxBody');
+  var html = '';
+  WX_CITIES.forEach(function(c){
+    var days = data[c.id];
+    if (!days || !days.length) return;
+    html += '<div class="wx-row"><span class="wx-city">' + c.name + '</span><div class="wx-days">';
+    days.forEach(function(d, i){
+      var dt = new Date(d.date);
+      if (isNaN(dt)) dt = new Date(String(d.date).replace(/-/g, '/'));
+      var wd = '日一二三四五六'[dt.getDay()];
+      var trip = WX_TRIP[d.date];
+      var md = (dt.getMonth() + 1) + '/' + dt.getDate();
+      html += '<div class="wx-cell' + (trip ? ' trip' : '') + (i === 0 ? ' today' : '') + '" title="' + d.dayText + ' · ' + (d.dayWindDirection || '') + ' ' + (d.dayWindScale || '') + '">'
+        + '<span class="wx-d">' + (i === 0 ? '今天' : md) + '</span>'
+        + '<span class="wx-wd">' + (trip ? trip : '周' + wd) + '</span>'
+        + '<span class="wx-w"><i style="background:' + wxColor(d.dayText) + '"></i>' + d.dayText + '</span>'
+        + '<span class="wx-t">' + Math.round(d.high) + '°<em>/' + Math.round(d.low) + '°</em></span>'
+        + '</div>';
+    });
+    html += '</div></div>';
+  });
+  body.innerHTML = html || '<div class="wx-loading">暂无数据</div>';
+  document.querySelectorAll('.wx-days').forEach(function(el){
+    var trip = el.querySelector('.wx-cell.trip');
+    if (trip) el.scrollLeft = Math.max(0, trip.offsetLeft - 56);
+  });
+  var src = document.getElementById('wxSrc');
+  var d = new Date(stamp);
+  var label = (d.getMonth() + 1) + '/' + d.getDate() + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  src.textContent = '中国气象局 · ' + (stale ? '缓存 ' : '更新 ') + label;
+}
+function wxLoad(){
+  var cached = null;
+  try { cached = JSON.parse(localStorage.getItem(WX_KEY) || 'null'); } catch (e) {}
+  if (cached && cached.data) wxRender(cached.data, cached.t, true);
+  var jobs = WX_CITIES.map(function(c){
+    return fetch('https://weather.cma.cn/api/weather/view?stationid=' + c.id)
+      .then(function(r){ return r.json(); })
+      .then(function(j){ return [c.id, (j && j.data && j.data.daily) || []]; });
+  });
+  Promise.all(jobs).then(function(pairs){
+    var data = {};
+    pairs.forEach(function(p){ data[p[0]] = p[1]; });
+    var t = Date.now();
+    try { localStorage.setItem(WX_KEY, JSON.stringify({ t: t, data: data })); } catch (e) {}
+    wxRender(data, t, false);
+  }).catch(function(){
+    if (!cached || !cached.data){
+      document.getElementById('wxBody').innerHTML = '<div class="wx-loading">天气数据暂时不可用 · 出发前请在 weather.cma.cn 复核</div>';
+      document.getElementById('wxSrc').textContent = '中国气象局 · 获取失败';
+    }
+  });
+}
+wxLoad();
+
+/* ============ 昼夜自动切换 ============ */
+function applyTheme(){
+  var h = new Date().getHours();
+  var night = (h < 6 || h >= 18);
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && (h < 7 || h >= 17)) night = true;
+  document.documentElement.setAttribute('data-theme', night ? 'night' : 'day');
+}
+applyTheme(); setInterval(applyTheme, 60000);
+
+/* ============ 此刻关注 · 倒计时 ============ */
+var EVENTS = [
+  { t: "2026-09-30T14:50:00+08:00", title: "Lulu G123 北京朝阳 14:50 发车", sub: "最早出发 · 19:25 抵哈尔滨西" },
+  { t: "2026-09-30T18:55:00+08:00", title: "QQ 落地哈尔滨太平 T2", sub: "CZ6929 · 可电酒店 0451-82516777 免费接机" },
+  { t: "2026-09-30T20:40:00+08:00", title: "菲利克斯落地哈尔滨太平 T2", sub: "GJ8991" },
+  { t: "2026-09-30T21:25:00+08:00", title: "lpf、球球落地哈尔滨太平 T2", sub: "MU5650" },
+  { t: "2026-09-30T23:25:00+08:00", title: "Puzzle 落地哈尔滨太平 T2", sub: "CA3645 · 经烟台" },
+  { t: "2026-10-01T00:50:00+08:00", title: "嘎子落地哈尔滨太平 T2", sub: "FU6631 · 经停青岛 · 全员到齐" },
+  { t: "2026-10-01T09:30:00+08:00", title: "取车 · 哈尔滨火车站南广场", sub: "司机组 Puzzle、菲利克斯 · 采购组超市补给" },
+  { t: "2026-10-01T10:30:00+08:00", title: "汇合出发 → 萝北", sub: "D1 · 480–505 km / 6–8 h" },
+  { t: "2026-10-02T08:00:00+08:00", title: "出发 · 萝北 → 龙江三峡 → 嘉荫", sub: "D2 · G331 边境公路 · 江畔日落 16:57" },
+  { t: "2026-10-03T08:30:00+08:00", title: "茅兰沟国家森林公园", sub: "D3 · 已购票 · 徒步 6–9 km" },
+  { t: "2026-10-04T07:30:00+08:00", title: "汤旺河石林 · 首批入园", sub: "D4 · 已购票 · 午后视条件去五营" },
+  { t: "2026-10-05T08:00:00+08:00", title: "金山鹿苑 → 乌带公路 → 哈尔滨", sub: "D5 · 450–500 km / 8–10 h" },
+  { t: "2026-10-06T07:00:00+08:00", title: "lpf、球球打车去机场", sub: "ZH9759 · 08:45 起飞" },
+  { t: "2026-10-06T09:30:00+08:00", title: "还车 · 火车站南广场", sub: "白天中央大街半日 · 行李寄存" },
+  { t: "2026-10-06T13:30:00+08:00", title: "菲利克斯 JD5378 起飞", sub: "哈尔滨 → 杭州" },
+  { t: "2026-10-06T19:55:00+08:00", title: "Puzzle / QQ / 嘎子 19:55 起飞", sub: "CZ6930 长沙 · SC4752 青岛" }
+];
+function tick(){
+  var now = Date.now(), next = null;
+  for (var i = 0; i < EVENTS.length; i++){
+    var tt = new Date(EVENTS[i].t).getTime();
+    if (tt > now){ next = { e: EVENTS[i], ts: tt }; break; }
+  }
+  var evEl = document.getElementById('nowEvent'), subEl = document.getElementById('nowSub');
+  if (!next){
+    evEl.textContent = "旅程收官 · 五花山色已入册";
+    subEl.textContent = "2026 国庆 · 小兴安岭";
+    set("cdD","0"); set("cdH","0"); set("cdM","0"); set("cdS","0");
+    return;
+  }
+  evEl.textContent = next.e.title;
+  subEl.textContent = next.e.sub;
+  var diff = Math.max(0, next.ts - now);
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor(diff % 86400000 / 3600000);
+  var m = Math.floor(diff % 3600000 / 60000);
+  var s = Math.floor(diff % 60000 / 1000);
+  set("cdD", d); set("cdH", h); set("cdM", m); set("cdS", s);
+}
+function set(id, v){ document.getElementById(id).textContent = v; }
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
