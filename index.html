@@ -578,7 +578,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <div class="fl"><span class="fl-t">18:55</span><div class="fl-main"><span class="who">QQ</span><span class="no">南航 CZ6929</span><span class="rt">长沙黄花T2 15:15 → 哈尔滨太平T2</span></div></div>
       <div class="fl"><span class="fl-t">19:25</span><div class="fl-main"><span class="who">Lulu</span><span class="no">高铁 G123</span><span class="rt">北京朝阳 14:50 → 哈尔滨西 · 到站后前往机场酒店（约40km）</span></div></div>
       <div class="fl"><span class="fl-t">20:40</span><div class="fl-main"><span class="who">菲利克斯</span><span class="no">长龙 GJ8991</span><span class="rt">杭州萧山T3 17:30 → 哈尔滨太平T2</span></div></div>
-      <div class="fl"><span class="fl-t">21:25</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">东航 MU5650</span><span class="rt">宁波栎社T2 17:55 → 哈尔滨太平T2</span></div></div>
+      <div class="fl"><span class="fl-t">21:05</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">青岛 QW6100</span><span class="rt">宁波栎社 16:35 → 哈尔滨太平T2</span></div><span class="fl-note">球球 G815 杭州东13:05→宁波14:00 接驳</span></div>
       <div class="fl"><span class="fl-t">23:25</span><div class="fl-main"><span class="who">Puzzle</span><span class="no">国航 CA3645</span><span class="rt">广州白云T3 17:05 → 哈尔滨太平T2 · 经烟台停约50分</span></div></div>
       <div class="fl"><span class="fl-t">00:50</span><div class="fl-main"><span class="who">嘎子</span><span class="no">福州航 FU6631</span><span class="rt">福州长乐 19:35 → 哈尔滨太平T2 · 经停青岛 · 10/1 凌晨抵达</span></div><span class="fl-note">+1天</span></div>
       <div class="bk-group">返程 · 10/6（按起飞时间排序）</div>
@@ -721,11 +721,12 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         </div>
       </div>
       <div class="tl">
+        <div class="ev"><span class="t">13:05</span><span class="c">球球 G815 杭州东 → 宁波 14:00（接驳 QW6100，中转缓冲 1.5 h）</span></div>
         <div class="ev"><span class="t">14:50</span><span class="c">Lulu G123 北京朝阳 → 哈尔滨西 19:25（到站后前往机场酒店，约40km）</span></div>
         <div class="ev"><span class="t">18:00</span><span class="c">前：电话预订 10/1 萝北晚餐（酒店餐厅/东北菜，晚到即途中热食）</span></div>
         <div class="ev"><span class="t">18:55</span><span class="c">QQ 落地太平T2（CZ6929）· 可电酒店免费接机</span></div>
         <div class="ev"><span class="t">20:40</span><span class="c">菲利克斯落地太平T2（GJ8991）</span></div>
-        <div class="ev"><span class="t">21:25</span><span class="c">lpf、球球落地太平T2（MU5650）</span></div>
+        <div class="ev"><span class="t">21:05</span><span class="c">lpf、球球落地太平T2（QW6100 宁波栎社 16:35 起飞）</span></div>
         <div class="ev"><span class="t">23:25</span><span class="c">Puzzle 落地太平T2（CA3645 · 经烟台）</span></div>
         <div class="ev"><span class="t">00:50</span><span class="c">嘎子落地太平T2（FU6631 · 10/1 凌晨）· 全员到齐</span></div>
       </div>
@@ -1291,15 +1292,16 @@ applyTheme(); setInterval(applyTheme, 60000);
 
 /* ============ 此刻关注 · 倒计时 ============ */
 var EVENTS = [
-  { t: "2026-09-30T14:50:00+08:00", title: "Lulu G123 北京朝阳 14:50 发车", sub: "最早出发 · 19:25 抵哈尔滨西" },
+  { t: "2026-09-30T13:05:00+08:00", title: "球球 G815 杭州东 13:05 发车", sub: "最早出发 · 14:00 抵宁波 · 接驳 QW6100" },
+  { t: "2026-09-30T14:50:00+08:00", title: "Lulu G123 北京朝阳 14:50 发车", sub: "19:25 抵哈尔滨西" },
   { t: "2026-09-30T18:55:00+08:00", title: "QQ 落地哈尔滨太平 T2", sub: "CZ6929 · 可电酒店 0451-82516777 免费接机" },
   { t: "2026-09-30T20:40:00+08:00", title: "菲利克斯落地哈尔滨太平 T2", sub: "GJ8991" },
-  { t: "2026-09-30T21:25:00+08:00", title: "lpf、球球落地哈尔滨太平 T2", sub: "MU5650" },
+  { t: "2026-09-30T21:05:00+08:00", title: "lpf、球球落地哈尔滨太平 T2", sub: "QW6100 · 宁波栎社 16:35 起飞" },
   { t: "2026-09-30T23:25:00+08:00", title: "Puzzle 落地哈尔滨太平 T2", sub: "CA3645 · 经烟台" },
   { t: "2026-10-01T00:50:00+08:00", title: "嘎子落地哈尔滨太平 T2", sub: "FU6631 · 经停青岛 · 全员到齐" },
   { t: "2026-10-01T09:30:00+08:00", title: "取车 · 哈尔滨火车站南广场", sub: "司机组 Puzzle、菲利克斯 · 采购组超市补给" },
   { t: "2026-10-01T10:30:00+08:00", title: "汇合出发 → 萝北", sub: "D1 · 480–505 km / 6–8 h" },
-  { t: "2026-10-02T08:00:00+08:00", title: "出发 · 萝北 → 龙江三峡 → 嘉荫", sub: "D2 · G331 边境公路 · 江畔日落 16:57" },
+  { t: "2026-10-02T08:00:00+08:00", title: "出发 · 萝北 → 云天阁 → 马连村 → 嘉荫", sub: "D2 · G331 边境公路 · 江畔野餐日落 16:57" },
   { t: "2026-10-03T08:30:00+08:00", title: "茅兰沟国家森林公园", sub: "D3 · 已购票 · 徒步 6–9 km" },
   { t: "2026-10-04T07:30:00+08:00", title: "汤旺河石林 · 首批入园", sub: "D4 · 已购票 · 午后视条件去五营" },
   { t: "2026-10-05T08:00:00+08:00", title: "金山鹿苑 → 乌带公路 → 哈尔滨", sub: "D5 · 450–500 km / 8–10 h" },
