@@ -8,7 +8,7 @@
 /* ============ 设计系统 ============ */
 :root{
   --paper:#f6f1e7; --paper-2:#efe8d9; --card:#fdfbf5;
-  --ink:#1d232e; --ink-2:#5a6270; --ink-3:#8b93a1;
+  --ink:#1d232e; --ink-2:#5a6270; --ink-3:#767e8d;
   --line:rgba(29,35,46,.14); --line-2:rgba(29,35,46,.08);
   --d1:#2f6fdb; --d2:#0e9f6e; --d3:#e8a13a; --d4:#d94848; --d5:#7c5cd6; --d0:#8a94a6;
   --accent:#c2571b;
@@ -19,7 +19,7 @@
 }
 html[data-theme="night"]{
   --paper:#10151d; --paper-2:#151b25; --card:#1a212c;
-  --ink:#e9e4d6; --ink-2:#a6aebb; --ink-3:#6e7787;
+  --ink:#e9e4d6; --ink-2:#a6aebb; --ink-3:#858e9e;
   --line:rgba(233,228,214,.16); --line-2:rgba(233,228,214,.08);
   --accent:#e08a4d;
   --now-bg:#232c3a; --now-fg:#f2ecdd; --now-dim:#8b95a6;
@@ -93,7 +93,7 @@ h1 .thin{font-weight:400;color:var(--ink-2)}
 .tn-link{
   flex:none;display:inline-flex;align-items:baseline;
   font-size:12px;letter-spacing:.08em;color:var(--ink-3);text-decoration:none;
-  padding:5px 12px;border-radius:999px;border:1px solid transparent;
+  padding:9px 13px;border-radius:999px;border:1px solid transparent;
   transition:color .25s ease,background .25s ease,border-color .25s ease;
 }
 .tn-link .tn-no{font-size:9.5px;letter-spacing:.05em;margin-right:5px;opacity:.65;font-variant-numeric:tabular-nums}
@@ -142,7 +142,7 @@ section{scroll-margin-top:60px}
 .subnav::-webkit-scrollbar{display:none}
 .sn-tab{
   flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink-2);
-  border-radius:999px;font-size:12px;padding:6px 14px;letter-spacing:.06em;
+  border-radius:999px;font-size:12px;padding:10px 15px;letter-spacing:.06em;
   cursor:pointer;font-family:var(--sans);font-variant-numeric:tabular-nums;
   transition:color .25s ease,background .25s ease,border-color .25s ease;
 }
@@ -219,7 +219,7 @@ html[data-theme="night"] .badge.cond{color:#e8b45a}
 .bk-head{display:flex;align-items:flex-start;gap:10px;cursor:pointer;user-select:none;-webkit-user-select:none}
 .bk-btn{
   flex:none;margin-left:auto;margin-top:2px;border:1px solid var(--line);background:transparent;
-  color:var(--ink-2);border-radius:999px;font-size:11px;padding:3px 11px;letter-spacing:.08em;
+  color:var(--ink-2);border-radius:999px;font-size:11px;padding:7px 13px;letter-spacing:.08em;
   display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:var(--sans);
 }
 .bk-btn svg{transition:transform .3s ease}
@@ -228,6 +228,17 @@ html[data-theme="night"] .badge.cond{color:#e8b45a}
 .collapsed .bk-body{max-height:0}
 .bk-summary{display:none;font-size:12px;color:var(--ink-3);margin-top:6px;letter-spacing:.03em}
 .collapsed .bk-summary{display:block}
+
+/* ============ 触控目标扩展（≥44px 命中区） ============ */
+.tn-link,.sn-tab,.bk-btn,.route-btn,.ttl-node{position:relative}
+.tn-link::before,.sn-tab::before,.bk-btn::before,.route-btn::before,.ttl-node::before{
+  content:"";position:absolute;inset:-7px -5px;
+}
+
+/* ============ 横滑渐隐提示 ============ */
+.fx-r{-webkit-mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 30px),transparent 100%);mask-image:linear-gradient(to right,#000 0,#000 calc(100% - 30px),transparent 100%)}
+.fx-l{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 30px,#000 100%);mask-image:linear-gradient(to right,transparent 0,#000 30px,#000 100%)}
+.fx-l.fx-r{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 30px,#000 calc(100% - 30px),transparent 100%)}
 
 /* ============ 地点链接 · 高德 ============ */
 .geo{
@@ -246,7 +257,7 @@ html[data-theme="night"] .geo{border-bottom-color:rgba(224,138,77,.5)}
 /* ============ 当日路线展开 ============ */
 .route-btn{
   flex:none;margin-left:auto;border:1px solid var(--line);background:transparent;
-  color:var(--ink-2);border-radius:999px;font-size:11px;padding:4px 12px;letter-spacing:.1em;
+  color:var(--ink-2);border-radius:999px;font-size:11px;padding:7px 13px;letter-spacing:.1em;
   display:inline-flex;align-items:center;gap:5px;cursor:pointer;font-family:var(--sans);
 }
 .route-btn svg{transition:transform .3s ease}
@@ -656,7 +667,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         <div>
           <span class="bk-tag">门票 · 9/25–27 统一购可退票</span>
           <div class="bk-title">景区票价与购票策略</div>
-          <div class="bk-summary">茅兰沟 ¥85 · 汤旺河 ¥115 · 金山鹿苑 ≈¥50 · 五营 ≈¥78（条件式）· 恐龙公园 ¥80（可删除）</div>
+          <div class="bk-summary">茅兰沟 ¥85 · 汤旺河 ¥115 · 金山鹿苑 ≈¥50 · 五营 ≈¥78（条件式）· 云天阁 ≈¥20 现场 · 恐龙公园 ¥80（备选）</div>
         </div>
         <button class="bk-btn" aria-expanded="true"><span class="bk-btn-t">收起</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
@@ -664,9 +675,10 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <div class="tk"><span class="nm">茅兰沟国家森林公园</span><span class="pr">¥85/人</span><span class="badge must">必去</span><span class="act">10/3 使用 · 提前购可退票</span></div>
       <div class="tk"><span class="nm">汤旺河林海奇石景区</span><span class="pr">¥115/人</span><span class="badge must">必去</span><span class="act">10/4 首批入园 · 提前购可退票</span></div>
       <div class="tk"><span class="nm">金山鹿苑</span><span class="pr">≈¥50/人</span><span class="badge must">必去</span><span class="act">10/5 使用 · 提前购可退票</span></div>
+      <div class="tk"><span class="nm">云天阁观光塔（太平沟）</span><span class="pr">≈¥20/人</span><span class="badge must">10/2</span><span class="act">现场购票 · 票价以现场为准</span></div>
       <div class="tk"><span class="nm">五营国家森林公园</span><span class="pr">≈¥78/人</span><span class="badge cond">条件式</span><span class="act">只买「未使用可退」票</span></div>
-      <div class="tk"><span class="nm">恐龙国家地质公园</span><span class="pr">¥80/人</span><span class="badge drop">可删除</span><span class="act">视 10/2 时间与体力现场定</span></div>
-      <div class="bk-sub" style="margin-top:8px">截至 8/20 未查到 2026 国庆强制分时预约公告；若景区发布实名时段制，以 9 月下旬官方公告为准。龙江三峡 / G331 / 嘉荫公共江岸 / 名山江畔无需购票，但需留意道路施工与边境管理要求。</div>
+      <div class="tk"><span class="nm">恐龙国家地质公园</span><span class="pr">¥80/人</span><span class="badge drop">备选</span><span class="act">10/2 时间体力充裕再加 · 不提前购票</span></div>
+      <div class="bk-sub" style="margin-top:8px">截至 8/20 未查到 2026 国庆强制分时预约公告；若景区发布实名时段制，以 9 月下旬官方公告为准。云天阁 / 马连村 / G331 / 嘉荫公共江岸 / 名山江畔无需预约，但需留意道路施工与边境管理要求。</div>
       </div>
     </div>
     </div>
@@ -760,30 +772,36 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <div class="day-head">
         <div class="day-badge" style="background:var(--d2)">D2</div>
         <div>
-          <div class="day-title">萝北 → 龙江三峡 → 嘉荫</div>
-          <div class="day-date">10/2 周五 · ≈224 km / 5.5–7.5 h</div>
+          <div class="day-title">萝北 → 云天阁 → 马连村 → 嘉荫</div>
+          <div class="day-date">10/2 周五 · ≈230 km / 4.5–6 h · 随停随拍日</div>
         </div>
         <button class="route-btn" data-route aria-expanded="false"><span class="route-btn-t">路线</span><svg width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
       <div class="route-body">
         <div class="route-inner">
           <div class="route-stops">
-            <a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=龙江三峡&city=鹤岗&callnative=1">龙江三峡</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">嘉荫·林业小区民宿</a>
+            <a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=云天阁观光塔&city=鹤岗&callnative=1">云天阁观光塔</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=马连村&city=伊春&callnative=1">马连村</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县江滨公园&city=伊春&callnative=1">嘉荫江畔公园</a><span class="arr">→</span><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">林业小区民宿</a>
           </div>
           <div class="route-legs">
-            <a class="leg" href="https://uri.amap.com/navigation?from=130.836365,47.564084,凤南华府宾馆(凤翔国际店)&to=130.664558,48.127623,龙江三峡&mode=car&callnative=1"><span class="lg-no">1</span><span class="lg-t">萝北 → 龙江三峡 · G331 边境公路</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
-            <a class="leg" href="https://uri.amap.com/navigation?from=130.664558,48.127623,龙江三峡&to=130.404957,48.896262,嘉荫县林业小区&mode=car&callnative=1"><span class="lg-no">2</span><span class="lg-t">龙江三峡 → 嘉荫民宿 · 沿江南下</span><span class="lg-d">约2 h</span><span class="lg-go">导航 ›</span></a>
-            <a class="leg cond" href="https://uri.amap.com/navigation?from=130.664558,48.127623,龙江三峡&to=130.255843,48.855724,嘉荫恐龙国家地质公园&mode=car&callnative=1"><span class="lg-no">3</span><span class="lg-t">条件式 · 龙江三峡 → 恐龙公园（可删除项）</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/search?keyword=云天阁观光塔&city=鹤岗&callnative=1"><span class="lg-no">1</span><span class="lg-t">萝北 → 云天阁观光塔（太平沟）· G331 北上</span><span class="lg-d">约1.5–2 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/search?keyword=马连村&city=伊春&callnative=1"><span class="lg-no">2</span><span class="lg-t">云天阁 → 马连村（保兴镇·江畔）</span><span class="lg-d">约1.5 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/search?keyword=嘉荫县江滨公园&city=伊春&callnative=1"><span class="lg-no">3</span><span class="lg-t">马连村 → 嘉荫江畔公园（县城）</span><span class="lg-d">约1 h</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg" href="https://uri.amap.com/navigation?from=130.397,48.889,嘉荫江畔公园&to=130.404957,48.896262,嘉荫县林业小区&mode=car&callnative=1"><span class="lg-no">4</span><span class="lg-t">江畔公园 → 林业小区民宿 · 日落后入住</span><span class="lg-d">约10 分钟</span><span class="lg-go">导航 ›</span></a>
+            <a class="leg cond" href="https://uri.amap.com/navigation?from=130.404957,48.896262,嘉荫县林业小区&to=130.255843,48.855724,嘉荫恐龙国家地质公园&mode=car&callnative=1"><span class="lg-no">5</span><span class="lg-t">备选 · 民宿 ↔ 恐龙公园（时间体力充裕再加）</span><span class="lg-d">单程约20 分钟</span><span class="lg-go">导航 ›</span></a>
           </div>
-          <div class="route-cap">G331 部分路段可能施工 · 出发前按高德与交管公告复核</div>
+          <div class="route-cap">云天阁 / 马连村为地名搜索直达高德点位 · G331 部分路段可能施工，出发前按高德与交管公告复核</div>
         </div>
       </div>
       <div class="tl">
         <div class="ev"><span class="t">08:00</span><span class="c">出发，沿 G331 边境公路北上，黑龙江岸线随停随拍</span></div>
-        <div class="ev"><span class="t">上午</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=龙江三峡&city=鹤岗&callnative=1">龙江三峡</a>（无需购票）—— 黑龙江、山脊与边境公路</span></div>
-        <div class="ev"><span class="t">午后</span><span class="c">机动：<a class="geo" href="https://uri.amap.com/search?keyword=嘉荫恐龙国家地质公园&city=伊春&callnative=1">恐龙国家地质公园</a>（¥80/人，可删除项，看时间体力）</span></div>
-        <div class="ev"><span class="t">16:57</span><span class="c">嘉荫江畔暮色 / 日落（光线以临行复核为准）</span></div>
+        <div class="ev"><span class="t">09:30</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=云天阁观光塔&city=鹤岗&callnative=1">云天阁观光塔</a>登塔（约 1 h · 门票约 ¥20 现场为准）—— 360° 俯瞰龙江三峡全景</span></div>
+        <div class="ev"><span class="t">11:00</span><span class="c">继续北上，沿途观景台随停随拍；午餐车内解决</span></div>
+        <div class="ev"><span class="t">13:00</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=马连村&city=伊春&callnative=1">马连村</a>（保兴镇 · 黑龙江畔边境小村）拍照 30–45 分钟</span></div>
+        <div class="ev"><span class="t">15:30</span><span class="c">抵嘉荫县城 · 补给野餐物资（或前夜在萝北买好）</span></div>
+        <div class="ev"><span class="t">16:00</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县江滨公园&city=伊春&callnative=1">嘉荫江畔公园</a>占位 · 江畔野餐</span></div>
+        <div class="ev"><span class="t">16:57</span><span class="c">江畔日落（光线以临行复核为准）· 七人合影</span></div>
         <div class="ev"><span class="t">晚</span><span class="c">入住嘉荫民宿；晚餐 江鱼/铁锅炖（前夜预点 · 15:30 复核 · 问清称重）</span></div>
+        <div class="ev"><span class="t">备选</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫恐龙国家地质公园&city=伊春&callnative=1">恐龙国家地质公园</a>（¥80/人 · 仅当 15:00 前抵县城且全员体力充裕）</span></div>
       </div>
       <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">龙之梦民宿</a>（嘉荫林业小区）</div>
     </div>
@@ -1157,6 +1175,31 @@ document.querySelectorAll('[data-route]').forEach(function(b){
   }
 });
 
+/* ============ 横滑渐隐侦测 ============ */
+(function(){
+  var SEL = '.topnav-inner, .subnav, .wx-days';
+  var bound = new WeakSet();
+  function upd(el){
+    var l = el.scrollLeft > 6;
+    var r = el.scrollLeft + el.clientWidth < el.scrollWidth - 6;
+    el.classList.toggle('fx-l', l);
+    el.classList.toggle('fx-r', r);
+  }
+  function scan(){
+    document.querySelectorAll(SEL).forEach(function(el){
+      upd(el);
+      if (!bound.has(el)){
+        bound.add(el);
+        el.addEventListener('scroll', function(){ upd(el); }, { passive: true });
+      }
+    });
+  }
+  window.__fxScan = scan;
+  scan();
+  window.addEventListener('resize', scan);
+  window.addEventListener('load', scan);
+})();
+
 /* ============ 天气 · 中国气象局 ============ */
 var WX_CITIES = [
   { name: '哈尔滨', id: '50953' },
@@ -1200,6 +1243,7 @@ function wxRender(data, stamp, stale){
     html += '</div></div>';
   });
   body.innerHTML = html || '<div class="wx-loading">暂无数据</div>';
+  if (window.__fxScan) window.__fxScan();
   document.querySelectorAll('.wx-days').forEach(function(el){
     var trip = el.querySelector('.wx-cell.trip');
     if (trip) el.scrollLeft = Math.max(0, trip.offsetLeft - 56);
