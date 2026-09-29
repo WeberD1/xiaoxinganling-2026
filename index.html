@@ -302,6 +302,8 @@ html[data-theme="night"] .geo{border-bottom-color:rgba(224,138,77,.5)}
 .tl .t{flex:none;width:64px;text-align:right;font-variant-numeric:tabular-nums;font-weight:600;font-size:13px;color:var(--ink);padding-top:1px}
 .tl .c{font-size:13.5px;color:var(--ink-2)}
 .stay-line{display:flex;gap:8px;align-items:center;padding:10px 18px;background:var(--paper-2);font-size:12.5px;color:var(--ink-2)}
+.eat-line{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;padding:10px 18px;background:var(--paper-2);border-top:1px dashed var(--line-2);font-size:12.5px;color:var(--ink-2)}
+.eat-line .geo{font-weight:600}
 .ticket{display:inline-block;font-size:10px;padding:1px 7px;border-radius:4px;background:rgba(194,87,27,.14);color:var(--accent);margin-right:6px;letter-spacing:.05em;vertical-align:1px;white-space:nowrap}
 .ticket.cond{background:rgba(232,161,58,.16);color:#b97c1a}
 html[data-theme="night"] .ticket.cond{color:#e8b45a}
@@ -351,6 +353,7 @@ html[data-theme="night"] .ticket.cond{color:#e8b45a}
 .wx-cell .wx-t{display:block;font-size:11.5px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
 .wx-cell .wx-t em{font-style:normal;font-weight:400;color:var(--ink-3);font-size:10px}
 .wx-cell.today .wx-d{color:var(--accent);font-weight:700}
+.wx-cell.dim{opacity:.55}
 .wx-cell.trip{border-color:rgba(194,87,27,.4);background:rgba(194,87,27,.07)}
 .wx-cell.trip .wx-wd{color:var(--accent);font-weight:700}
 html[data-theme="night"] .wx-cell.trip{border-color:rgba(224,138,77,.45);background:rgba(224,138,77,.1)}
@@ -578,7 +581,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
       <div class="fl"><span class="fl-t">18:55</span><div class="fl-main"><span class="who">QQ</span><span class="no">南航 CZ6929</span><span class="rt">长沙黄花T2 15:15 → 哈尔滨太平T2</span></div></div>
       <div class="fl"><span class="fl-t">19:25</span><div class="fl-main"><span class="who">Lulu</span><span class="no">高铁 G123</span><span class="rt">北京朝阳 14:50 → 哈尔滨西 · 到站后前往机场酒店（约40km）</span></div></div>
       <div class="fl"><span class="fl-t">20:40</span><div class="fl-main"><span class="who">菲利克斯</span><span class="no">长龙 GJ8991</span><span class="rt">杭州萧山T3 17:30 → 哈尔滨太平T2</span></div></div>
-      <div class="fl"><span class="fl-t">21:05</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">青岛 QW6100</span><span class="rt">宁波栎社 16:35 → 哈尔滨太平T2</span></div><span class="fl-note">球球 G815 杭州东13:05→宁波14:00 接驳</span></div>
+      <div class="fl"><span class="fl-t">21:05</span><div class="fl-main"><span class="who">lpf、球球</span><span class="no">青岛 QW6100</span><span class="rt">宁波栎社 16:35 → 哈尔滨太平T2 · 球球先乘 G815 杭州东 13:05 → 宁波 14:00 接驳</span></div></div>
       <div class="fl"><span class="fl-t">23:25</span><div class="fl-main"><span class="who">Puzzle</span><span class="no">国航 CA3645</span><span class="rt">广州白云T3 17:05 → 哈尔滨太平T2 · 经烟台停约50分</span></div></div>
       <div class="fl"><span class="fl-t">00:50</span><div class="fl-main"><span class="who">嘎子</span><span class="no">福州航 FU6631</span><span class="rt">福州长乐 19:35 → 哈尔滨太平T2 · 经停青岛 · 10/1 凌晨抵达</span></div><span class="fl-note">+1天</span></div>
       <div class="bk-group">返程 · 10/6（按起飞时间排序）</div>
@@ -763,8 +766,9 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         <div class="ev"><span class="t">10:00</span><span class="c">取车② 理想 L6</span></div>
         <div class="ev"><span class="t">10:30</span><span class="c">司机接采购组，汇合出发</span></div>
         <div class="ev"><span class="t">10:45</span><span class="c">哈尔滨 → 萝北，午餐车内解决</span></div>
-        <div class="ev"><span class="t">18:00</span><span class="c">抵达萝北入住；晚餐酒店餐厅（9/30 已预留）</span></div>
+        <div class="ev"><span class="t">18:00</span><span class="c">抵达萝北入住；晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=老英烧烤&city=鹤岗&callnative=1">老英烧烤</a>（凤翔镇 · 距住处 2.7 km / 驾车 7 min）</span></div>
       </div>
+      <div class="eat-line">🍽&nbsp; 吃 · 晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=老英烧烤&city=鹤岗&callnative=1">老英烧烤</a>（萝北县凤翔镇 · 第三中学附近 · 距住处 2.7 km / 驾车 7 min）</div>
       <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=凤南华府宾馆凤翔国际店&city=鹤岗&callnative=1">凤南华府宾馆</a>（萝北景观路85号）</div>
     </div>
 
@@ -802,9 +806,10 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         <div class="ev"><span class="t">16:00</span><span class="c">抵嘉荫县城 · 补给野餐物资（或前夜在萝北买好）</span></div>
         <div class="ev"><span class="t">16:30</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县江滨公园&city=伊春&callnative=1">嘉荫江畔公园</a>占位 · 江畔野餐</span></div>
         <div class="ev"><span class="t">16:57</span><span class="c">江畔日落（光线以临行复核为准）· 七人合影</span></div>
-        <div class="ev"><span class="t">晚</span><span class="c">入住嘉荫民宿；晚餐 江鱼/铁锅炖（前夜预点 · 15:30 复核 · 问清称重）</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">入住嘉荫民宿；晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=福源鱼锅&city=伊春&callnative=1">福源鱼锅</a>（当地特色江鱼 · 前夜预点 · 15:30 复核 · 问清称重），或步行备选 小邴饺子 / 三毛冷饮厅</span></div>
         <div class="ev"><span class="t">备选</span><span class="c"><a class="geo" href="https://uri.amap.com/search?keyword=嘉荫恐龙国家地质公园&city=伊春&callnative=1">恐龙国家地质公园</a>（¥80/人 · 9 点出发后基本不可行，仅极限备选）</span></div>
       </div>
+      <div class="eat-line">🍽&nbsp; 吃 · 晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=福源鱼锅&city=伊春&callnative=1">福源鱼锅</a>（当地特色 · 尚志街95号 · 距住处 1 km / 驾车 3 min）｜<a class="geo" href="https://uri.amap.com/search?keyword=三毛冷饮厅神州龙路店&city=伊春&callnative=1">三毛冷饮厅</a>（神州龙路店 · 本地人小时候的味道 · 300 m 步行）｜<a class="geo" href="https://uri.amap.com/search?keyword=小邴饺子家乡菜&city=伊春&callnative=1">小邴饺子家乡菜</a>（86 m 步行 · 小红书随便选大受震撼）</div>
       <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=嘉荫县林业小区&city=伊春&callnative=1">龙之梦民宿</a>（嘉荫林业小区）</div>
     </div>
 
@@ -837,8 +842,9 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         <div class="ev"><span class="t">11:00</span><span class="c"><span class="ticket">已购票</span><a class="geo" href="https://uri.amap.com/search?keyword=汤旺河林海奇石景区&city=伊春&callnative=1">汤旺河林海奇石景区</a> 入园（¥115/人 · 使用日 10/3）—— 一线天竖构图、人物与巨石比例</span></div>
         <div class="ev"><span class="t">全天</span><span class="c">石林慢游：栈道环线 + 河岸机位；午餐景区内/自带</span></div>
         <div class="ev"><span class="t">16:30</span><span class="c">出园 → 汤旺（约15分钟）</span></div>
-        <div class="ev"><span class="t">晚</span><span class="c">入住汤旺龙源小院；晚餐 森林家宴/杀猪菜（民宿代订 · 14:30 复核 · 不食野蘑菇）</span></div>
+        <div class="ev"><span class="t">晚</span><span class="c">入住汤旺龙源小院；晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=亓记隐厨&city=伊春&callnative=1">亓记隐厨</a>（必吃 · 建议提前订位 · 不食野蘑菇）</span></div>
       </div>
+      <div class="eat-line">🍽&nbsp; 吃 · 晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=亓记隐厨&city=伊春&callnative=1">亓记隐厨</a>（必吃 · 小红书评价"不虚此行" · 距住处约 600 m 步行）</div>
       <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=汤旺县&city=伊春&callnative=1">汤旺龙源小院</a></div>
     </div>
 
@@ -868,14 +874,16 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
         </div>
       </div>
       <div class="tl">
+        <div class="ev"><span class="t">08:00</span><span class="c">早餐 <a class="geo" href="https://uri.amap.com/search?keyword=阿英早餐&city=伊春&callnative=1">阿英早餐</a>（必吃 · 小红书早市 top1 · 距住处约 800 m 步行）</span></div>
         <div class="ev"><span class="t">09:00</span><span class="c">出发 → 五营（约 1.5 h）</span></div>
         <div class="ev"><span class="t">10:30</span><span class="c"><span class="ticket">已购票</span><a class="geo" href="https://uri.amap.com/search?keyword=五营红松林海景区&city=伊春&callnative=1">五营红松林海景区</a>（≈¥78/人 · 提前购可退票）—— 红松原始林慢游约 3 h，天赐湖倒影、红松林逆光机位</span></div>
         <div class="ev"><span class="t">13:30</span><span class="c">出园 → 溪水（约 40 分钟）；午餐车内路餐解决</span></div>
         <div class="ev"><span class="t">14:10</span><span class="c"><span class="ticket cond">弹性项</span><a class="geo" href="https://uri.amap.com/search?keyword=上甘岭溪水国家森林公园&city=伊春&callnative=1">上甘岭溪水国家森林公园</a>（≈¥60/人 · 提前购可退票，雨大砍）—— 溪水步道约 1.5 h，木栈道森系人像</span></div>
         <div class="ev"><span class="t">16:00</span><span class="c">出发 → <a class="geo" href="https://uri.amap.com/search?keyword=秋枫路&city=伊春&callnative=1">秋枫路（机场网红公路）</a>—— U 型弯心形观景台停车打卡 15–20 分钟，航拍五花山弯道（2026 官方网红打卡地）</span></div>
-        <div class="ev"><span class="t">17:00</span><span class="c">入住伊春整栋别墅；晚餐 铁锅炖/烧烤</span></div>
+        <div class="ev"><span class="t">17:00</span><span class="c">入住伊春整栋别墅；晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=千百味私房菜&city=伊春&callnative=1">千百味私房菜</a>（南郡B2区 · 驾车 10 min）</span></div>
         <div class="ev"><span class="t">雨天</span><span class="c"><span class="ticket cond">Plan B</span>溪水被雨砍掉 → 改去<a class="geo" href="https://uri.amap.com/search?keyword=兴安国家森林公园&city=伊春&callnative=1">兴安国家森林公园</a>（伊春市区内 · 城市林海，零绕路）</span></div>
       </div>
+      <div class="eat-line">🍽&nbsp; 吃 · 早餐 <a class="geo" href="https://uri.amap.com/search?keyword=阿英早餐&city=伊春&callnative=1">阿英早餐</a>（必吃 · 小红书早市 top1 · 距住处约 800 m 步行）｜晚餐 <a class="geo" href="https://uri.amap.com/search?keyword=千百味私房菜&city=伊春&callnative=1">千百味私房菜</a>（南郡B2区 · 距住处 5.1 km / 驾车 10 min）</div>
       <div class="stay-line">🏠&nbsp; 住 · <a class="geo" href="https://uri.amap.com/search?keyword=伊春市伊美区前进街道&city=伊春&callnative=1">伊春整栋别墅</a>（伊美区前进街道）</div>
     </div>
 
@@ -982,7 +990,7 @@ footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-si
     <div class="wx-card">
       <div class="wx-head"><h3>天气 · 五城逐日预报</h3><span class="wx-src" id="wxSrc">中国气象局 · 加载中…</span></div>
       <div id="wxBody"><div class="wx-loading">正在获取中国气象局数据…</div></div>
-      <div class="wx-cap">中国气象局 7 天实时预报 · 行程日（D0–D6）进入预报窗口后自动标注 · 打开页面即更新，离线显示缓存</div>
+      <div class="wx-cap">每城仅显示到达日及次日（哈尔滨含往返两段）· 打开页面即更新，离线显示缓存 · 数据源：中国气象局</div>
     </div>
     <div class="tip-grid">
       <div class="tip-card collapsed">
@@ -1207,11 +1215,11 @@ document.querySelectorAll('[data-route]').forEach(function(b){
 
 /* ============ 天气 · 中国气象局 ============ */
 var WX_CITIES = [
-  { name: '哈尔滨', id: '50953' },
-  { name: '萝北',   id: '50776' },
-  { name: '嘉荫',   id: '50673' },
-  { name: '汤旺',   id: '50674' },
-  { name: '伊春',   id: '50774' }
+  { name: '哈尔滨', id: '50953', days: ['2026/09/30','2026/10/01','2026/10/05','2026/10/06'] },
+  { name: '萝北',   id: '50776', days: ['2026/10/01','2026/10/02'] },
+  { name: '嘉荫',   id: '50673', days: ['2026/10/02','2026/10/03'] },
+  { name: '汤旺',   id: '50674', days: ['2026/10/03','2026/10/04'] },
+  { name: '伊春',   id: '50774', days: ['2026/10/04','2026/10/05'] }
 ];
 var WX_TRIP = { '2026/09/30':'D0','2026/10/01':'D1','2026/10/02':'D2','2026/10/03':'D3','2026/10/04':'D4','2026/10/05':'D5','2026/10/06':'D6' };
 var WX_KEY = 'wxCacheV1';
@@ -1228,22 +1236,35 @@ function wxColor(t){
 function wxRender(data, stamp, stale){
   var body = document.getElementById('wxBody');
   var html = '';
+  var now = new Date();
+  var todayStr = now.getFullYear() + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + String(now.getDate()).padStart(2, '0');
   WX_CITIES.forEach(function(c){
-    var days = data[c.id];
-    if (!days || !days.length) return;
+    var days = data[c.id] || [];
+    var byDate = {};
+    days.forEach(function(d){ byDate[d.date] = d; });
     html += '<div class="wx-row"><span class="wx-city">' + c.name + '</span><div class="wx-days">';
-    days.forEach(function(d, i){
-      var dt = new Date(d.date);
-      if (isNaN(dt)) dt = new Date(String(d.date).replace(/-/g, '/'));
+    (c.days || []).forEach(function(wdate){
+      var d = byDate[wdate];
+      var dt = new Date(wdate);
       var wd = '日一二三四五六'[dt.getDay()];
-      var trip = WX_TRIP[d.date];
+      var trip = WX_TRIP[wdate];
       var md = (dt.getMonth() + 1) + '/' + dt.getDate();
-      html += '<div class="wx-cell' + (trip ? ' trip' : '') + (i === 0 ? ' today' : '') + '" title="' + d.dayText + ' · ' + (d.dayWindDirection || '') + ' ' + (d.dayWindScale || '') + '">'
-        + '<span class="wx-d">' + (i === 0 ? '今天' : md) + '</span>'
-        + '<span class="wx-wd">' + (trip ? trip : '周' + wd) + '</span>'
-        + '<span class="wx-w"><i style="background:' + wxColor(d.dayText) + '"></i>' + d.dayText + '</span>'
-        + '<span class="wx-t">' + Math.round(d.high) + '°<em>/' + Math.round(d.low) + '°</em></span>'
-        + '</div>';
+      var isToday = (wdate === todayStr);
+      if (d) {
+        html += '<div class="wx-cell' + (trip ? ' trip' : '') + (isToday ? ' today' : '') + '" title="' + d.dayText + ' · ' + (d.dayWindDirection || '') + ' ' + (d.dayWindScale || '') + '">'
+          + '<span class="wx-d">' + (isToday ? '今天' : md) + '</span>'
+          + '<span class="wx-wd">' + (trip ? trip : '周' + wd) + '</span>'
+          + '<span class="wx-w"><i style="background:' + wxColor(d.dayText) + '"></i>' + d.dayText + '</span>'
+          + '<span class="wx-t">' + Math.round(d.high) + '°<em>/' + Math.round(d.low) + '°</em></span>'
+          + '</div>';
+      } else {
+        html += '<div class="wx-cell dim' + (trip ? ' trip' : '') + '">'
+          + '<span class="wx-d">' + md + '</span>'
+          + '<span class="wx-wd">' + (trip ? trip : '周' + wd) + '</span>'
+          + '<span class="wx-w">待更新</span>'
+          + '<span class="wx-t">--<em>/--</em></span>'
+          + '</div>';
+      }
     });
     html += '</div></div>';
   });
